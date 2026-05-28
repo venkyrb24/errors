@@ -1,8 +1,2 @@
-PS C:\cobol-modernization-pipeline> .\scripts\push_images.ps1
-
-Logging in to ECR...
-WARNING! Using --password via the CLI is insecure. Use --password-stdin.
-Error response from daemon: login attempt to https://260851781623.dkr.ecr.us-east-1.amazonaws.com/v2/ failed with status: 400 Bad Request
-
-keep this line,dont change it:
-$token = & $AWS ecr get-login-password --region $REGION
+  & "C:\Users\vrbalmuri\AppData\Roaming\Python\Python311\Scripts\aws.cmd" bedrock get-foundation-model-availability --model-id us.anthropic.claude-sonnet-4-6 --region
+   us-east-1 --profile sba-prod     
