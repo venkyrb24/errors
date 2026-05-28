@@ -1,2 +1,1 @@
-  & "C:\Users\vrbalmuri\AppData\Roaming\Python\Python311\Scripts\aws.cmd" bedrock get-foundation-model-availability --model-id us.anthropic.claude-sonnet-4-6 --region
-   us-east-1 --profile sba-prod     
+PS C:\cobol-modernization-pipeline> & "C:\Users\vrbalmuri\AppData\Roaming\Python\Python311\Scripts\aws.cmd" bedrock get-foundation-model-availability --model-id us.anthropic.claude-sonnet-4-6 --region us-east-1
