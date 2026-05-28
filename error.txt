@@ -1,2 +1,93 @@
 error from registry: The repository with name 'prod/cafs-ai/map-data-structures' does not exist in the registry with id '260851781623'
 [data-mapper] PUSH FAILED
+
+prod/cafs-ai/cobol-runtime
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/cobol-runtime
+May 14, 2026, 15:18:55 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/code-converter
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/code-converter
+May 14, 2026, 15:20:54 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/copybook-resolver
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/copybook-resolver
+May 14, 2026, 15:21:39 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/dependency-graph
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/dependency-graph
+May 14, 2026, 15:22:22 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/design-conversion
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/design-conversion
+May 14, 2026, 15:23:14 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/equivalence-checker
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/equivalence-checker
+May 14, 2026, 15:23:58 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/extract-business-logic
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/extract-business-logic
+May 14, 2026, 15:24:33 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/generate-functional-spec
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/generate-functional-spec
+May 14, 2026, 15:26:23 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/inventory-dialect
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/inventory-dialect
+May 14, 2026, 15:28:31 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/job-script-updater
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/job-script-updater
+May 14, 2026, 15:29:15 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/map-data-structures
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/map-data-structures
+May 14, 2026, 15:29:59 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/map-job-scripts
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/map-job-scripts
+May 14, 2026, 15:30:48 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/parse-structure
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/parse-structure
+May 14, 2026, 15:32:18 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/schema-mapper
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/schema-mapper
+May 14, 2026, 15:33:03 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/score-complexity
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/score-complexity
+May 14, 2026, 15:33:49 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/size-classifier
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/size-classifier
+May 14, 2026, 15:34:34 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/supervisor
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/supervisor
+May 14, 2026, 15:35:13 (UTC-04)
+Immutable + Exclusions
+KMS
+prod/cafs-ai/test-generator
+260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/test-generator
+May 14, 2026, 15:37:04 (UTC-04)
+Immutable + Exclusions
+KMS
