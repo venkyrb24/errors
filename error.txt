@@ -1,0 +1,76 @@
+aws.cmd :
+At C:\cobol-modernization-pipeline\scripts\push_images.ps1:25 char:10
++ $token = & $AWS ecr get-login-password --region $REGION --profile $PR ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+
+# push_images.ps1 — Build and push all agent Docker images to SBA ECR
+# Usage: .\scripts\push_images.ps1
+# Run from the repo root on the SBA machine.
+
+$ErrorActionPreference = "Stop"
+
+$ACCOUNT    = "260851781623"
+$REGION     = "us-east-2"
+$PROFILE    = "sba-prod"
+$ECR_BASE   = "$ACCOUNT.dkr.ecr.$REGION.amazonaws.com"
+$DOCKERFILE = "Dockerfile.agent"
+$AWS = "C:\Users\vrbalmuri\AppData\Roaming\Python\Python311\Scripts\aws.cmd"
+
+# Agent name -> ECR repo mapping
+$AGENTS = [ordered]@{
+    "source-discovery"   = "prod/cafs-ai/inventory-dialect"
+    "structure-analyzer" = "prod/cafs-ai/parse-structure"
+    "data-mapper"        = "prod/cafs-ai/map-data-structures"
+    "spec-synthesizer"   = "prod/cafs-ai/generate-functional-spec"
+    "phase1-supervisor"  = "prod/cafs-ai/supervisor"
+}
+
+# ── ECR login ────────────────────────────────────────────────────────────────
+Write-Host "`nLogging in to ECR..." -ForegroundColor Cyan
+$token = & $AWS ecr get-login-password --region $REGION --profile $PROFILE 2>&1
+if ($LASTEXITCODE -ne 0) { throw "Failed to get ECR token: $token" }
+docker login --username AWS --password $token $ECR_BASE
+if ($LASTEXITCODE -ne 0) { throw "ECR login failed" }
+
+# ── Build and push each agent ─────────────────────────────────────────────────
+$success = @()
+$failed  = @()
+
+foreach ($agent in $AGENTS.Keys) {
+    $repo = $AGENTS[$agent]
+    $tag  = "$ECR_BASE/${repo}:prod"
+
+    Write-Host "`n[$agent] Building -> $tag" -ForegroundColor Cyan
+
+    docker build --platform linux/amd64 `
+        --build-arg AGENT_NAME=$agent `
+        -t $tag `
+        -f $DOCKERFILE .
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "[$agent] BUILD FAILED" -ForegroundColor Red
+        $failed += $agent
+        continue
+    }
+
+    Write-Host "[$agent] Pushing..." -ForegroundColor Cyan
+    docker push $tag
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "[$agent] PUSH FAILED" -ForegroundColor Red
+        $failed += $agent
+    } else {
+        Write-Host "[$agent] Done" -ForegroundColor Green
+        $success += $agent
+    }
+}
+
+# ── Summary ───────────────────────────────────────────────────────────────────
+Write-Host "`n── Summary ──────────────────────────────" -ForegroundColor Cyan
+if ($success) { Write-Host "Succeeded: $($success -join ', ')" -ForegroundColor Green }
+if ($failed)  { Write-Host "Failed:    $($failed  -join ', ')" -ForegroundColor Red }
+
+if ($failed) { exit 1 }
