@@ -1,3 +1,97 @@
-PS C:\cobol-modernization-pipeline\infrastructure> terraform state push errored.tfstate
-Failed to write state: cannot import state with lineage "219d4436-edde-3d59-0325-8edf59c99063" over unrelated state with lineage "4665ac21-a0c7-211b-56a4-7d27e86bb6f5"
+lambda-role:cobol-pipeline-structure-analyzer-inline]
+╷
+│ Error: creating Bedrock Agent
+│
+│   with module.phase1_supervisor_agent.aws_bedrockagent_agent.this,
+│   on modules\bedrock_agent\main.tf line 96, in resource "aws_bedrockagent_agent" "this":
+│   96: resource "aws_bedrockagent_agent" "this" {
+│
+│ operation error Bedrock Agent: CreateAgent, https response error StatusCode: 409, RequestID: 3e227808-9bbb-4ade-b5b8-54a968e47f88,
+│ ConflictException: Could not perform Create operation, since the cobol-pipeline-phase1-supervisor (id: A8RMAPZEH6) with the same
+│ name cobol-pipeline-phase1-supervisor already exists
+╵
+╷
+│ Error: creating Bedrock Agent
+│
+│   with module.data_mapper_agent.aws_bedrockagent_agent.this,
+│   on modules\bedrock_agent\main.tf line 96, in resource "aws_bedrockagent_agent" "this":
+│   96: resource "aws_bedrockagent_agent" "this" {
+│
+│ operation error Bedrock Agent: CreateAgent, https response error StatusCode: 409, RequestID: 071233f8-3099-46bf-b8d8-418686ddfe01,
+│ ConflictException: Could not perform Create operation, since the cobol-pipeline-data-mapper (id: M53L7R9W6U) with the same name
+│ cobol-pipeline-data-mapper already exists
+╵
+╷
+│ Error: creating Bedrock Agent
+│
+│   with module.structure_analyzer_agent.aws_bedrockagent_agent.this,
+│   on modules\bedrock_agent\main.tf line 96, in resource "aws_bedrockagent_agent" "this":
+│   96: resource "aws_bedrockagent_agent" "this" {
+│
+│ operation error Bedrock Agent: CreateAgent, https response error StatusCode: 409, RequestID: 04ed655c-9689-48e1-b6d4-9d76ea6d7cf4,
+│ ConflictException: Could not perform Create operation, since the cobol-pipeline-structure-analyzer (id: 2GC0SIMDVP) with the same
+│ name cobol-pipeline-structure-analyzer already exists
+╵
+╷
+│ Error: creating Bedrock Agent
+│
+│   with module.source_discovery_agent.aws_bedrockagent_agent.this,
+│   on modules\bedrock_agent\main.tf line 96, in resource "aws_bedrockagent_agent" "this":
+│   96: resource "aws_bedrockagent_agent" "this" {
+│
+│ operation error Bedrock Agent: CreateAgent, https response error StatusCode: 409, RequestID: cd1362d3-f456-4c3c-bc7b-01be7004492a,
+│ ConflictException: Could not perform Create operation, since the cobol-pipeline-source-discovery (id: VSRDWMQJVS) with the same
+│ name cobol-pipeline-source-discovery already exists
+╵
+╷
+│ Error: creating Bedrock Agent
+│
+│   with module.spec_synthesizer_agent.aws_bedrockagent_agent.this,
+│   on modules\bedrock_agent\main.tf line 96, in resource "aws_bedrockagent_agent" "this":
+│   96: resource "aws_bedrockagent_agent" "this" {
+│
+│ operation error Bedrock Agent: CreateAgent, https response error StatusCode: 409, RequestID: 150db0ed-9ef8-47b8-a149-d5b7e01cff20,
+│ ConflictException: Could not perform Create operation, since the cobol-pipeline-spec-synthesizer (id: M3RZJATEJI) with the same
+│ name cobol-pipeline-spec-synthesizer already exists
+╵
+╷
+│ Error: creating Lambda Function (cobol-pipeline-spec-synthesizer): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: 118722e7-ae59-41f6-b9f9-41e25e8db362, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/generate-functional-spec:prod is not supported.
+│
+│   with module.spec_synthesizer_lambda.aws_lambda_function.this,
+│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
+│  239: resource "aws_lambda_function" "this" {
+│
+╵
+╷
+│ Error: creating Lambda Function (cobol-pipeline-source-discovery): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: f1e73057-2630-4b81-81c5-fff3d6881726, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/inventory-dialect:prod is not supported.
+│
+│   with module.source_discovery_lambda.aws_lambda_function.this,
+│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
+│  239: resource "aws_lambda_function" "this" {
+│
+╵
+╷
+│ Error: creating Lambda Function (cobol-pipeline-structure-analyzer): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: 81c7d9e8-2684-4050-b31e-67b1f3452cb2, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/parse-structure:prod is not supported.
+│
+│   with module.structure_analyzer_lambda.aws_lambda_function.this,
+│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
+│  239: resource "aws_lambda_function" "this" {
+│
+╵
+╷
+│ Error: creating Lambda Function (cobol-pipeline-data-mapper): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: e6b3536f-ce0a-44e0-9427-948842ae1b51, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/map-data-structures:prod is not supported.
+│
+│   with module.data_mapper_lambda.aws_lambda_function.this,
+│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
+│  239: resource "aws_lambda_function" "this" {
+│
+╵
+╷
+│ Error: creating Lambda Function (cobol-pipeline-phase1-supervisor): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: 0b937e25-533f-4d03-917a-77fbb98d7551, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/supervisor:prod is not supported.
+│
+│   with module.phase1_supervisor_lambda.aws_lambda_function.this,
+│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
+│  239: resource "aws_lambda_function" "this" {
+│
+╵
 PS C:\cobol-modernization-pipeline\infrastructure>
