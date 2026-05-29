@@ -1,0 +1,21 @@
+  $env:USERPROFILE = "C:\Users\$env:USERNAME"                                                                                                                         
+                                                                                                                                                                      
+  # ECR login                                                                                                                                                         
+  aws ecr get-login-password --region us-east-1 --profile sba-prod | docker login --username AWS --password-stdin 260851781623.dkr.ecr.us-east-1.amazonaws.com        
+                                                                                                                                                                      
+  # Build and push each image
+  $agents = @{                                                                                                                                                        
+    "source-discovery"   = "inventory-dialect"              
+    "structure-analyzer" = "parse-structure"                                                                                                                          
+    "data-mapper"        = "map-data-structures"
+    "spec-synthesizer"   = "generate-functional-spec"                                                                                                                 
+    "phase1-supervisor"  = "supervisor"                                                                                                                               
+  }
+                                                                                                                                                                      
+  foreach ($agent in $agents.Keys) {                        
+    $repo = "260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/$($agents[$agent]):prod"
+    docker build --platform linux/amd64 --provenance=false --build-arg AGENT_NAME=$agent -t $repo -f Dockerfile.agent .                                               
+    docker push $repo                                                                                                                                                 
+  }                                                                                                                                                                   
+                                                                                                                                                                      
+  Run this from C:\cobol-modernization-pipeline (where Dockerfile.agent is). It'll take a few minutes per image on first build. 
