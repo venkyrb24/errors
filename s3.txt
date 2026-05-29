@@ -1,38 +1,6 @@
-module.sns.aws_sns_topic.this["cost_alerts"]: Creating...
+module.structure_analyzer_lambda.aws_iam_role.lambda: Creating...
 ╷
-│ Error: creating IAM Role (cobol-pipeline-structure-analyzer-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 532ce60b-66c1-4ad8-8318-7a1f32807a6d, EntityAlreadyExists: Role with name cobol-pipeline-structure-analyzer-agent-role already exists.
-│
-│   with module.structure_analyzer_agent.aws_iam_role.agent,
-│   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
-│   52: resource "aws_iam_role" "agent" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-phase1-supervisor-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 7e171947-25e2-48e6-af37-ddb47a8626ba, EntityAlreadyExists: Role with name cobol-pipeline-phase1-supervisor-agent-role already exists.
-│
-│   with module.phase1_supervisor_agent.aws_iam_role.agent,
-│   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
-│   52: resource "aws_iam_role" "agent" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-source-discovery-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: dcedfa8d-87e6-4266-bb3d-4d2c54682c39, EntityAlreadyExists: Role with name cobol-pipeline-source-discovery-agent-role already exists.
-│
-│   with module.source_discovery_agent.aws_iam_role.agent,
-│   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
-│   52: resource "aws_iam_role" "agent" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-data-mapper-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: fdae4a04-d7cb-409b-9995-de5b9f1fbad7, EntityAlreadyExists: Role with name cobol-pipeline-data-mapper-agent-role already exists.
-│
-│   with module.data_mapper_agent.aws_iam_role.agent,
-│   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
-│   52: resource "aws_iam_role" "agent" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-spec-synthesizer-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 4b4ecec2-6804-4271-877c-250686714227, EntityAlreadyExists: Role with name cobol-pipeline-spec-synthesizer-agent-role already exists.
+│ Error: creating IAM Role (cobol-pipeline-spec-synthesizer-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 7baa71b8-8da5-45fc-a7a7-4868ba1440ca, EntityAlreadyExists: Role with name cobol-pipeline-spec-synthesizer-agent-role already exists.
 │
 │   with module.spec_synthesizer_agent.aws_iam_role.agent,
 │   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
@@ -40,7 +8,39 @@ module.sns.aws_sns_topic.this["cost_alerts"]: Creating...
 │
 ╵
 ╷
-│ Error: creating IAM Role (cobol-pipeline-data-mapper-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: ea87912f-6da6-4154-b783-beef6bce9ad3, EntityAlreadyExists: Role with name cobol-pipeline-data-mapper-lambda-role already exists.
+│ Error: creating IAM Role (cobol-pipeline-data-mapper-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: fd02d788-2a16-4ec6-926b-975bd8cf702c, EntityAlreadyExists: Role with name cobol-pipeline-data-mapper-agent-role already exists.
+│
+│   with module.data_mapper_agent.aws_iam_role.agent,
+│   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
+│   52: resource "aws_iam_role" "agent" {
+│
+╵
+╷
+│ Error: creating IAM Role (cobol-pipeline-phase1-supervisor-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: b5460710-1f61-4aae-8518-d7c7394082cc, EntityAlreadyExists: Role with name cobol-pipeline-phase1-supervisor-agent-role already exists.
+│
+│   with module.phase1_supervisor_agent.aws_iam_role.agent,
+│   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
+│   52: resource "aws_iam_role" "agent" {
+│
+╵
+╷
+│ Error: creating IAM Role (cobol-pipeline-source-discovery-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 3bc7b059-a65b-4800-a823-8b616b574097, EntityAlreadyExists: Role with name cobol-pipeline-source-discovery-agent-role already exists.
+│
+│   with module.source_discovery_agent.aws_iam_role.agent,
+│   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
+│   52: resource "aws_iam_role" "agent" {
+│
+╵
+╷
+│ Error: creating IAM Role (cobol-pipeline-structure-analyzer-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 1791d848-0e6c-4abb-a645-e61a2c2f8554, EntityAlreadyExists: Role with name cobol-pipeline-structure-analyzer-agent-role already exists.
+│
+│   with module.structure_analyzer_agent.aws_iam_role.agent,
+│   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
+│   52: resource "aws_iam_role" "agent" {
+│
+╵
+╷
+│ Error: creating IAM Role (cobol-pipeline-data-mapper-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 77fdf177-eadf-4d40-8e5f-6f0077dcf116, EntityAlreadyExists: Role with name cobol-pipeline-data-mapper-lambda-role already exists.
 │
 │   with module.data_mapper_lambda.aws_iam_role.lambda,
 │   on modules\lambda_action_group\main.tf line 120, in resource "aws_iam_role" "lambda":
@@ -48,7 +48,7 @@ module.sns.aws_sns_topic.this["cost_alerts"]: Creating...
 │
 ╵
 ╷
-│ Error: creating IAM Role (cobol-pipeline-structure-analyzer-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 452b2f35-26b7-4dfb-936b-b3bfaf2d78b7, EntityAlreadyExists: Role with name cobol-pipeline-structure-analyzer-lambda-role already exists.
+│ Error: creating IAM Role (cobol-pipeline-structure-analyzer-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: f8ca5280-0da6-4600-95ae-f6876a349d8f, EntityAlreadyExists: Role with name cobol-pipeline-structure-analyzer-lambda-role already exists.
 │
 │   with module.structure_analyzer_lambda.aws_iam_role.lambda,
 │   on modules\lambda_action_group\main.tf line 120, in resource "aws_iam_role" "lambda":
@@ -56,23 +56,7 @@ module.sns.aws_sns_topic.this["cost_alerts"]: Creating...
 │
 ╵
 ╷
-│ Error: creating IAM Role (cobol-pipeline-phase1-supervisor-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: f4ad4d8c-b67c-4cc2-a8a9-e90a4fec2add, EntityAlreadyExists: Role with name cobol-pipeline-phase1-supervisor-lambda-role already exists.
-│
-│   with module.phase1_supervisor_lambda.aws_iam_role.lambda,
-│   on modules\lambda_action_group\main.tf line 120, in resource "aws_iam_role" "lambda":
-│  120: resource "aws_iam_role" "lambda" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-spec-synthesizer-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 193cff31-38cc-4aca-b230-b632987cdd7b, EntityAlreadyExists: Role with name cobol-pipeline-spec-synthesizer-lambda-role already exists.
-│
-│   with module.spec_synthesizer_lambda.aws_iam_role.lambda,
-│   on modules\lambda_action_group\main.tf line 120, in resource "aws_iam_role" "lambda":
-│  120: resource "aws_iam_role" "lambda" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-source-discovery-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 8140da26-a0ff-4587-86b6-3fe64ad8e8f3, EntityAlreadyExists: Role with name cobol-pipeline-source-discovery-lambda-role already exists.
+│ Error: creating IAM Role (cobol-pipeline-source-discovery-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 6b0bb5ab-0126-455e-ad98-0b0ef7b02def, EntityAlreadyExists: Role with name cobol-pipeline-source-discovery-lambda-role already exists.
 │
 │   with module.source_discovery_lambda.aws_iam_role.lambda,
 │   on modules\lambda_action_group\main.tf line 120, in resource "aws_iam_role" "lambda":
@@ -80,39 +64,23 @@ module.sns.aws_sns_topic.this["cost_alerts"]: Creating...
 │
 ╵
 ╷
-│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-source-discovery): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: 4dfbef45-9ce2-416a-89c6-fcb30aa03aea, ResourceAlreadyExistsException: The specified log group already exists
+│ Error: creating IAM Role (cobol-pipeline-phase1-supervisor-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: cbe62fde-dbb2-4c0c-9a4f-ce20ab67647d, EntityAlreadyExists: Role with name cobol-pipeline-phase1-supervisor-lambda-role already exists.
 │
-│   with module.source_discovery_lambda.aws_cloudwatch_log_group.this,
-│   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
-│  233: resource "aws_cloudwatch_log_group" "this" {
-│
-╵
-╷
-│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-phase1-supervisor): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: a7e98fe3-781b-48ae-a6fa-a436d580ab38, ResourceAlreadyExistsException: The specified log group already exists
-│
-│   with module.phase1_supervisor_lambda.aws_cloudwatch_log_group.this,
-│   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
-│  233: resource "aws_cloudwatch_log_group" "this" {
+│   with module.phase1_supervisor_lambda.aws_iam_role.lambda,
+│   on modules\lambda_action_group\main.tf line 120, in resource "aws_iam_role" "lambda":
+│  120: resource "aws_iam_role" "lambda" {
 │
 ╵
 ╷
-│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-spec-synthesizer): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: 67c4d8ed-0ade-4b0e-8e5b-fcef79a1adb5, ResourceAlreadyExistsException: The specified log group already exists
+│ Error: creating IAM Role (cobol-pipeline-spec-synthesizer-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: e96f75ad-e7fe-4fae-9061-16f88b12da76, EntityAlreadyExists: Role with name cobol-pipeline-spec-synthesizer-lambda-role already exists.
 │
-│   with module.spec_synthesizer_lambda.aws_cloudwatch_log_group.this,
-│   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
-│  233: resource "aws_cloudwatch_log_group" "this" {
-│
-╵
-╷
-│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-structure-analyzer): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: c88e8153-c8b2-4690-9842-3d5426df47bf, ResourceAlreadyExistsException: The specified log group already exists
-│
-│   with module.structure_analyzer_lambda.aws_cloudwatch_log_group.this,
-│   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
-│  233: resource "aws_cloudwatch_log_group" "this" {
+│   with module.spec_synthesizer_lambda.aws_iam_role.lambda,
+│   on modules\lambda_action_group\main.tf line 120, in resource "aws_iam_role" "lambda":
+│  120: resource "aws_iam_role" "lambda" {
 │
 ╵
 ╷
-│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-data-mapper): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: e9b14a48-680d-412a-b300-f8b03992d0e6, ResourceAlreadyExistsException: The specified log group already exists
+│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-data-mapper): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: 76b0c219-cd96-4351-8dc7-1cb0acd82b57, ResourceAlreadyExistsException: The specified log group already exists
 │
 │   with module.data_mapper_lambda.aws_cloudwatch_log_group.this,
 │   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
@@ -120,47 +88,39 @@ module.sns.aws_sns_topic.this["cost_alerts"]: Creating...
 │
 ╵
 ╷
-│ Error: creating SNS Topic (cobol-pipeline-cost-alerts): operation error SNS: CreateTopic, https response error StatusCode: 403, RequestID: e7fdfbc1-55d5-54b6-8c33-9952f3c07020, AuthorizationError: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: SNS:CreateTopic on resource: arn:aws:sns:us-east-1:260851781623:cobol-pipeline-cost-alerts because no permissions boundary allows the SNS:CreateTopic action
+│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-spec-synthesizer): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: 75e0848a-2c0f-4ed9-b79a-b2fdb42b81d7, ResourceAlreadyExistsException: The specified log group already exists
 │
-│   with module.sns.aws_sns_topic.this["cost_alerts"],
-│   on modules\sns_topics\main.tf line 26, in resource "aws_sns_topic" "this":
-│   26: resource "aws_sns_topic" "this" {
-│
-╵
-╷
-│ Error: creating SNS Topic (cobol-pipeline-dlq-alerts): operation error SNS: CreateTopic, https response error StatusCode: 403, RequestID: 11ab92c7-bc9e-5635-8ef7-f0541a8b2681, AuthorizationError: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: SNS:CreateTopic on resource: arn:aws:sns:us-east-1:260851781623:cobol-pipeline-dlq-alerts because no permissions boundary allows the SNS:CreateTopic action
-│
-│   with module.sns.aws_sns_topic.this["dlq_alerts"],
-│   on modules\sns_topics\main.tf line 26, in resource "aws_sns_topic" "this":
-│   26: resource "aws_sns_topic" "this" {
+│   with module.spec_synthesizer_lambda.aws_cloudwatch_log_group.this,
+│   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
+│  233: resource "aws_cloudwatch_log_group" "this" {
 │
 ╵
 ╷
-│ Error: creating SNS Topic (cobol-pipeline-sme-escalation): operation error SNS: CreateTopic, https response error StatusCode: 403, RequestID: de621476-0989-5cfe-8376-76e5af9c1d4c, AuthorizationError: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: SNS:CreateTopic on resource: arn:aws:sns:us-east-1:260851781623:cobol-pipeline-sme-escalation because no permissions boundary allows the SNS:CreateTopic action
+│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-phase1-supervisor): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: 504ba7a8-cc09-4064-8269-3155d179e04b, ResourceAlreadyExistsException: The specified log group already exists
 │
-│   with module.sns.aws_sns_topic.this["sme_escalation"],
-│   on modules\sns_topics\main.tf line 26, in resource "aws_sns_topic" "this":
-│   26: resource "aws_sns_topic" "this" {
-│
-╵
-╷
-│ Error: creating SNS Topic (cobol-pipeline-sme-review): operation error SNS: CreateTopic, https response error StatusCode: 403, RequestID: 083fa3de-da65-5f38-bcc3-c14d7c705deb, AuthorizationError: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: SNS:CreateTopic on resource: arn:aws:sns:us-east-1:260851781623:cobol-pipeline-sme-review because no permissions boundary allows the SNS:CreateTopic action
-│
-│   with module.sns.aws_sns_topic.this["sme_review"],
-│   on modules\sns_topics\main.tf line 26, in resource "aws_sns_topic" "this":
-│   26: resource "aws_sns_topic" "this" {
+│   with module.phase1_supervisor_lambda.aws_cloudwatch_log_group.this,
+│   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
+│  233: resource "aws_cloudwatch_log_group" "this" {
 │
 ╵
 ╷
-│ Error: creating SQS Queue (cobol-pipeline-step-functions-dlq): operation error SQS: CreateQueue, https response error StatusCode: 403, RequestID: 8f40556e-0ff1-597c-a97a-37fda9e4bb5c, api error AccessDenied: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: sqs:createqueue on resource: arn:aws:sqs:us-east-1:260851781623:cobol-pipeline-step-functions-dlq because no permissions boundary allows the sqs:createqueue action
+│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-structure-analyzer): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: d4d8418c-262b-440d-a1fe-ea11d1b76418, ResourceAlreadyExistsException: The specified log group already exists
 │
-│   with module.sns.aws_sqs_queue.step_functions_dlq,
-│   on modules\sns_topics\main.tf line 40, in resource "aws_sqs_queue" "step_functions_dlq":
-│   40: resource "aws_sqs_queue" "step_functions_dlq" {
+│   with module.structure_analyzer_lambda.aws_cloudwatch_log_group.this,
+│   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
+│  233: resource "aws_cloudwatch_log_group" "this" {
 │
 ╵
 ╷
-│ Error: creating IAM Role (cobol-pipeline-step-functions-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: e3c63d5d-56a8-4dc8-abe3-dafab449d1f7, EntityAlreadyExists: Role with name cobol-pipeline-step-functions-role already exists.
+│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-source-discovery): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: f2b5a41e-0ff3-4de2-8512-dd0055f3f6e9, ResourceAlreadyExistsException: The specified log group already exists
+│
+│   with module.source_discovery_lambda.aws_cloudwatch_log_group.this,
+│   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
+│  233: resource "aws_cloudwatch_log_group" "this" {
+│
+╵
+╷
+│ Error: creating IAM Role (cobol-pipeline-step-functions-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 6f1e112a-00fc-4520-a853-a9bd5caab40e, EntityAlreadyExists: Role with name cobol-pipeline-step-functions-role already exists.
 │
 │   with module.step_functions.aws_iam_role.sf,
 │   on modules\step_functions\main.tf line 25, in resource "aws_iam_role" "sf":
@@ -168,7 +128,7 @@ module.sns.aws_sns_topic.this["cost_alerts"]: Creating...
 │
 ╵
 ╷
-│ Error: creating CloudWatch Logs Log Group (/aws/vendedlogs/states/cobol-pipeline-phase1): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: 95742531-bef4-48a4-ab11-14cc8f6f0483, ResourceAlreadyExistsException: The specified log group already exists
+│ Error: creating CloudWatch Logs Log Group (/aws/vendedlogs/states/cobol-pipeline-phase1): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: fe1c4070-b860-4b17-b463-07dfa8ab671d, ResourceAlreadyExistsException: The specified log group already exists
 │
 │   with module.step_functions.aws_cloudwatch_log_group.phase1,
 │   on modules\step_functions\main.tf line 62, in resource "aws_cloudwatch_log_group" "phase1":
