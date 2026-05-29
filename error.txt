@@ -1,33 +1,9 @@
-PS C:\cobol-modernization-pipeline\infrastructure> terraform apply -var-file="cobol-conversion-pipeline.tfvars" -auto-approve
-╷
-│ Error: Unsupported block type
+│ Error: Invalid Attribute Value Length
 │
-│   on modules\bedrock_agent\main.tf line 102, in resource "aws_bedrockagent_agent" "this":
-│  102:   dynamic "guardrail_configuration" {
+│   with module.spec_synthesizer_agent.aws_bedrockagent_agent.this,
+│   on modules\bedrock_agent\main.tf line 100, in resource "aws_bedrockagent_agent" "this":
+│  100:   instruction             = var.instruction
 │
-│ Blocks of type "guardrail_configuration" are not expected here.
+│ Attribute instruction string length must be between 40 and 4000, got: 7707
 ╵
-╷
-│ Error: Invalid resource type
-│
-│   on modules\guardrails\main.tf line 12, in resource "aws_bedrock_guardrail" "all_agents":
-│   12: resource "aws_bedrock_guardrail" "all_agents" {
-│
-│ The provider hashicorp/aws does not support resource type "aws_bedrock_guardrail".
-╵
-PS C:\cobol-modernization-pipeline\infrastructure> terraform apply -var-file="cobol-conversion-pipeline.tfvars" -auto-approve
-╷
-│ Error: Unsupported block type
-│
-│   on modules\bedrock_agent\main.tf line 102, in resource "aws_bedrockagent_agent" "this":
-│  102:   dynamic "guardrail_configuration" {
-│
-│ Blocks of type "guardrail_configuration" are not expected here.
-╵
-╷
-│ Error: Invalid resource type
-│
-│   on modules\guardrails\main.tf line 12, in resource "aws_bedrock_guardrail" "all_agents":
-│   12: resource "aws_bedrock_guardrail" "all_agents" {
-│
-│ The provider hashicorp/aws does not support resource type "aws_bedrock_guardrail".
+PS C:\cobol-modernization-pipeline\infrastructure>
