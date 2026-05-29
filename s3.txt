@@ -1,35 +1,48 @@
-  First, check if errored.tfstate still exists:                                                                                                                       
-                                                                                                                                                                      
-  Test-Path C:\cobol-modernization-pipeline\infrastructure\errored.tfstate                                                                                            
-                                                                                                                                                                      
-  If it exists — push it (this is the fast path, imports everything at once):                                                                                         
-  terraform state push errored.tfstate                                                                                                                                
-  terraform apply -var-file=cobol-conversion-pipeline.tfvars -auto-approve                                                                                            
-                                                                                                                                                                      
-  If it doesn't exist — import each resource individually:
-                                                                                                                                                                      
-  # IAM Roles                                               
-  terraform import module.spec_synthesizer_agent.aws_iam_role.agent       cobol-pipeline-spec-synthesizer-agent-role
-  terraform import module.data_mapper_agent.aws_iam_role.agent             cobol-pipeline-data-mapper-agent-role                                                      
-  terraform import module.phase1_supervisor_agent.aws_iam_role.agent       cobol-pipeline-phase1-supervisor-agent-role                                                
-  terraform import module.source_discovery_agent.aws_iam_role.agent        cobol-pipeline-source-discovery-agent-role                                                 
-  terraform import module.structure_analyzer_agent.aws_iam_role.agent      cobol-pipeline-structure-analyzer-agent-role                                               
-  terraform import module.data_mapper_lambda.aws_iam_role.lambda           cobol-pipeline-data-mapper-lambda-role
-  terraform import module.structure_analyzer_lambda.aws_iam_role.lambda    cobol-pipeline-structure-analyzer-lambda-role                                              
-  terraform import module.source_discovery_lambda.aws_iam_role.lambda      cobol-pipeline-source-discovery-lambda-role
-  terraform import module.phase1_supervisor_lambda.aws_iam_role.lambda     cobol-pipeline-phase1-supervisor-lambda-role                                               
-  terraform import module.spec_synthesizer_lambda.aws_iam_role.lambda      cobol-pipeline-spec-synthesizer-lambda-role
-  terraform import module.step_functions.aws_iam_role.sf                   cobol-pipeline-step-functions-role                                                         
-                                                            
-  # CloudWatch Log Groups                                                                                                                                             
-  terraform import module.data_mapper_lambda.aws_cloudwatch_log_group.this       /aws/lambda/cobol-pipeline-data-mapper
-  terraform import module.spec_synthesizer_lambda.aws_cloudwatch_log_group.this  /aws/lambda/cobol-pipeline-spec-synthesizer                                          
-  terraform import module.phase1_supervisor_lambda.aws_cloudwatch_log_group.this /aws/lambda/cobol-pipeline-phase1-supervisor                                         
-  terraform import module.structure_analyzer_lambda.aws_cloudwatch_log_group.this /aws/lambda/cobol-pipeline-structure-analyzer
-  terraform import module.source_discovery_lambda.aws_cloudwatch_log_group.this  /aws/lambda/cobol-pipeline-source-discovery                                          
-  terraform import module.step_functions.aws_cloudwatch_log_group.phase1         /aws/vendedlogs/states/cobol-pipeline-phase1                                         
-                                                                                                                                                                      
-  terraform apply -var-file=cobol-conversion-pipeline.tfvars -auto-approve                                                                                            
-                                                            
-  The state push is preferable if the file exists — it captures everything including resources not in this error list (Bedrock agents, Lambdas, etc. that may have    
-  been partially created).    
+module.data_mapper_lambda.data.aws_iam_policy_document.lambda_inline: Read complete after 0s [id=2050644785]
+╷
+│ Error: Invalid String Enum Value
+│
+│ The provided value does not match any valid values.
+│
+│ Path: [0].prompt_type
+│ Given Value: MEMORY_SUMMARIZATION
+│ Valid Values: [PRE_PROCESSING ORCHESTRATION POST_PROCESSING KNOWLEDGE_BASE_RESPONSE_GENERATION ]
+╵
+
+╷
+│ Error: AutoFlEx
+│
+│ convert (PromptConfigurations)
+╵
+
+╷
+│ Error: AutoFlEx
+│
+│ convert (PromptOverrideConfiguration)
+╵
+
+╷
+│ Error: AutoFlEx
+│
+│ Flatten[*types.Agent, *bedrockagent.agentResourceModel]
+╵
+
+╷
+│ Error: Invalid for_each argument
+│
+│   on modules\foundation\main.tf line 64, in resource "aws_kms_alias" "this":
+│   64:   for_each      = aws_kms_key.this
+│     ├────────────────
+│     │ aws_kms_key.this will be known only after apply
+│
+│ The "for_each" map includes keys derived from resource attributes that cannot be determined until apply, and so Terraform cannot
+│ determine the full set of keys that will identify the instances of this resource.
+│
+│ When working with unknown values in for_each, it's better to define the map keys statically in your configuration and place
+│ apply-time results only in the map values.
+│
+│ Alternatively, you could use the -target planning option to first apply only the resources that the for_each value depends on, and
+│ then apply a second time to fully converge.
+╵
+
+PS C:\cobol-modernization-pipeline\infrastructure>
