@@ -1,27 +1,42 @@
-⏺ Two separate problems:                                                                                                                                              
-                                                                                                                                                                      
-  1. Bedrock agents (409) — same orphaned-state issue, but errored.tfstate didn't capture them. The error messages give us the IDs directly. Import them:             
-                                                                                                                                                                      
-⏺ terraform import -var-file="cobol-conversion-pipeline.tfvars" module.phase1_supervisor_agent.aws_bedrockagent_agent.this   A8RMAPZEH6                               
-  terraform import -var-file="cobol-conversion-pipeline.tfvars" module.data_mapper_agent.aws_bedrockagent_agent.this         M53L7R9W6U
-  terraform import -var-file="cobol-conversion-pipeline.tfvars" module.structure_analyzer_agent.aws_bedrockagent_agent.this  2GC0SIMDVP                               
-  terraform import -var-file="cobol-conversion-pipeline.tfvars" module.source_discovery_agent.aws_bedrockagent_agent.this    VSRDWMQJVS                               
-  terraform import -var-file="cobol-conversion-pipeline.tfvars" module.spec_synthesizer_agent.aws_bedrockagent_agent.this    M3RZJATEJI 
-                                                                                                                                                                      
-  2. Lambda image format (400) — separate issue. Lambda only supports Docker Image Manifest V2 Schema 2 or single-arch OCI. The platform team's :prod images are      
-  likely multi-arch manifest lists or ECS-format images, not Lambda-compatible. Check what you're dealing with:                                                       
-                                                                                                                                                                      
-  aws ecr batch-get-image `                                 
-    --repository-name prod/cafs-ai/supervisor `
-    --image-ids imageTag=prod `                                                                                                                                       
-    --region us-east-1 --profile sba-prod `
-    --query "images[0].imageManifest" --output text                                                                                                                   
-                                                                                                                                                                      
-  Look at the mediaType in the output:
-  - application/vnd.docker.distribution.manifest.list.v2+json → multi-arch manifest list, Lambda can't use it                                                         
-  - application/vnd.docker.distribution.manifest.v2+json → single-arch, should work                                                                                   
-  - application/vnd.oci.image.index.v1+json → OCI index (multi-arch), Lambda can't use it
-                                                                                                                                                                      
-  If it's a manifest list, the fix is to re-push targeting linux/amd64 specifically. Can you run that check and share the mediaType?                                  
-                                                                                                                                                                      
-✻ Crunched for 1m 16s  
+module.structure_analyzer_agent.aws_bedrockagent_agent.this: Modifications complete after 3s [id=2GC0SIMDVP]
+╷
+│ Error: creating Lambda Function (cobol-pipeline-source-discovery): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: e59c84f2-4a1e-43a9-bb7c-dce10608ee3c, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/inventory-dialect:prod is not supported.
+│
+│   with module.source_discovery_lambda.aws_lambda_function.this,
+│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
+│  239: resource "aws_lambda_function" "this" {
+│
+╵
+╷
+│ Error: creating Lambda Function (cobol-pipeline-spec-synthesizer): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: f13cfa5b-7d67-46d5-a421-ebe3cf8a01fc, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/generate-functional-spec:prod is not supported.
+│
+│   with module.spec_synthesizer_lambda.aws_lambda_function.this,
+│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
+│  239: resource "aws_lambda_function" "this" {
+│
+╵
+╷
+│ Error: creating Lambda Function (cobol-pipeline-data-mapper): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: 494b05df-d0f7-475b-a97a-4c05287890b1, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/map-data-structures:prod is not supported.
+│
+│   with module.data_mapper_lambda.aws_lambda_function.this,
+│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
+│  239: resource "aws_lambda_function" "this" {
+│
+╵
+╷
+│ Error: creating Lambda Function (cobol-pipeline-structure-analyzer): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: 33220aa5-6e5e-4049-b4e3-28803d02ec21, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/parse-structure:prod is not supported.
+│
+│   with module.structure_analyzer_lambda.aws_lambda_function.this,
+│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
+│  239: resource "aws_lambda_function" "this" {
+│
+╵
+╷
+│ Error: creating Lambda Function (cobol-pipeline-phase1-supervisor): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: 0e216347-b9ec-4185-9015-d874659bea83, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/supervisor:prod is not supported.
+│
+│   with module.phase1_supervisor_lambda.aws_lambda_function.this,
+│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
+│  239: resource "aws_lambda_function" "this" {
+│
+╵
+PS C:\cobol-modernization-pipeline\infrastructure>
