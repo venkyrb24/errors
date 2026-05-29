@@ -1,1 +1,8 @@
-PS C:\cobol-modernization-pipeline> & "C:\Users\vrbalmuri\AppData\Roaming\Python\Python311\Scripts\aws.cmd" bedrock get-foundation-model-availability --model-id us.anthropic.claude-sonnet-4-6 --region us-east-1
+│ Error: validating Step Functions State Machine definition: operation error SFN: ValidateStateMachineDefinition, https response error StatusCode: 400, RequestID: 90a1a226-7fdf-431d-8ecc-543f015e0c28, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: states:ValidateStateMachineDefinition on resource: arn:aws:states:us-east-1:260851781623:stateMachine:* because no permissions boundary allows the states:ValidateStateMachineDefinition action
+│
+│   with module.step_functions.aws_sfn_state_machine.phase2,
+│   on modules\step_functions\main.tf line 104, in resource "aws_sfn_state_machine" "phase2":
+│  104: resource "aws_sfn_state_machine" "phase2" {
+│
+╵
+PS C:\cobol-modernization-pipeline\infrastructure>
