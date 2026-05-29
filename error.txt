@@ -27,5 +27,20 @@ Needs admin (permissions boundary blocks):
     logs      = "arn:aws:kms:us-east-1:260851781623:key/..."                                                                                                          
     dynamodb  = "arn:aws:kms:us-east-1:260851781623:key/..."                                                                                                          
     efs       = "arn:aws:kms:us-east-1:260851781623:key/..."
-  }                                                                                                                                                                   
+  }    
+
+---
+
+⏺ Run this on the SBA machine — it lists all KMS keys with their aliases so you can match them to the project:
+                                                                                                                                                                      
+  awsv2 kms list-aliases --region us-east-1 --query "Aliases[?starts_with(AliasName,'alias/cafs')].{Alias:AliasName,KeyId:TargetKeyId}" --output table                
+                                                                                                                                                                      
+  If the aliases don't start with cafs, try a broader search:                                                                                                         
+  awsv2 kms list-aliases --region us-east-1 --query "Aliases[?TargetKeyId!=null].{Alias:AliasName,KeyId:TargetKeyId}" --output table                                  
+                                                                                                                                                                      
+  Once you see the key IDs, get the full ARN for any one of them:                                                                                                     
+  awsv2 kms describe-key --key-id <key-id-from-above> --region us-east-1 --query "KeyMetadata.Arn"                                                                    
+                                                                                                                                                                      
+  The ARN format will be arn:aws:kms:us-east-1:260851781623:key/<uuid> — paste that pattern into tfvars for each of the 6 slots. If the platform team created one     
+  shared key for everything, you can put the same ARN in all 6 slots.  
       
