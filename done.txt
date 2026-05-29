@@ -126,3 +126,75 @@
           ↓                                                                                                                                                           
   handler() runs                                                                                                                                                      
     →   
+---
+  ---                                                                                                                                                                 
+  Agent 1 — Source Discovery                                                                                                                                          
+  Input:  COBOL files on disk                                                                                                                                         
+                                                                                                                                                                      
+  Deterministic pass (regex, no AI):                                                                                                                                  
+    → classifies every file (.cbl, .pco, .cpy, .pl, .ctl)
+    → extracts COPY statements, CALL statements, dispatcher patterns                                                                                                  
+    → counts source lines → assigns size tier (Small/Medium/Large/XL)                                                                                                 
+                                                                                                                                                                      
+  LLM pass (Claude):                                                                                                                                                  
+    → sends the inventory to Claude                                                                                                                                   
+    → Claude confirms dialect, summarizes dispatcher usage, flags oddities                                                                                            
+                                                                                                                                                                      
+  Output: inventory.json                                                                                                                                              
+                                                                                                                                                                      
+  ---                                                                                                                                                                 
+  Agent 2 — Structure Analyzer (runs in parallel with Data Mapper)                                                                                                    
+  Input:  COBOL files + inventory.json                                                                                                                                
+                                                                                                                                                                      
+  Deterministic pass:                                       
+    → splits each program into IDENTIFICATION / ENVIRONMENT / DATA / PROCEDURE divisions                                                                              
+    → extracts every paragraph name and its body                                        
+    → counts decision points (IF, EVALUATE, WHEN, UNTIL, SEARCH, PERFORM VARYING)                                                                                     
+    → extracts EXEC SQL blocks → identifies tables touched                       
+    → identifies flat files opened                                                                                                                                    
+    → scores complexity → Minimal / Standard / Full                                                                                                                   
+                                                                                                                                                                      
+  LLM pass (Claude):                                                                                                                                                  
+    → sends analysis to Claude                                                                                                                                        
+    → Claude writes plain-English summaries of each paragraph                                                                                                         
+    → Claude can override the complexity classification if it disagrees                                                                                               
+                                                                                                                                                                      
+  Output: structure.json                                    
+                                                                                                                                                                      
+  ---                                                       
+  Agent 3 — Data Mapper (runs in parallel with Structure Analyzer)                                                                                                    
+  Input:  COBOL files + inventory.json + structure.json
+                                                                                                                                                                      
+  Deterministic pass:                                                                                                                                                 
+    → extracts every DATA DIVISION field (level, name, PIC clause, USAGE)
+    → classifies each PIC clause (alphanumeric / integer / amount)                                                                                                    
+    → if Oracle enabled: queries ALL_TAB_COLUMNS + ALL_INDEXES for tables found by Structure Analyzer
+    → matches COBOL fields to Oracle columns by name normalization (PMT-AMOUNT → PMT_AMOUNT)         
+    → flags mismatches (type, width, precision, length)                                     
+                                                                                                                                                                      
+  LLM pass (Claude):                                                                                                                                                  
+    → sends mapping to Claude                                                                                                                                         
+    → Claude fixes pairings the name heuristic missed                                                                                                                 
+    → Claude writes a data contract narrative for the SME                                                                                                             
+                                                                                                                                                                      
+  Output: data_mapping.json                                                                                                                                           
+                                                            
+  ---                                                                                                                                                                 
+  Agent 4 — Spec Synthesizer (runs after both parallel agents finish)
+  Input:  inventory.json + structure.json + data_mapping.json + all source files                                                                                      
+                                                                                
+  LLM pass only (Claude):                     
+    → builds one large prompt with all three prior outputs + raw source code                                                                                          
+    → optionally loads a sample FRD from S3 as a format template            
+    → Claude writes the full FRD (10 sections: Purpose, Inputs, Outputs,                                                                                              
+      Business Rules, Field Detail, Error Handling, Dependencies,       
+      SME Checklist, After Approval, Approval table)                                                                                                                  
+                                                                                                                                                                      
+  Output: FRD.md  →  SNS notification sent to SME for review                                                                                                          
+                                                                                                                                                                      
+  ---                                                                                                                                                                 
+  Key pattern across all agents:                                                                                                                                      
+                                                                                                                                                                      
+  Every agent does a deterministic pass first (fast regex/parsing, no AI cost, always runs) then an optional LLM pass (Claude looks at the deterministic output and   
+  adds judgment, summaries, or corrections). If use_llm: false in config, you get the deterministic output only — useful for testing or cost control.                 
+                                                            
