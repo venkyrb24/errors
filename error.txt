@@ -2,11 +2,11 @@
                                                                                                                                                                       
   1. Bedrock agents (409) — same orphaned-state issue, but errored.tfstate didn't capture them. The error messages give us the IDs directly. Import them:             
                                                                                                                                                                       
-  terraform import module.phase1_supervisor_agent.aws_bedrockagent_agent.this   A8RMAPZEH6                                                                            
-  terraform import module.data_mapper_agent.aws_bedrockagent_agent.this         M53L7R9W6U                                                                            
-  terraform import module.structure_analyzer_agent.aws_bedrockagent_agent.this  2GC0SIMDVP                                                                            
-  terraform import module.source_discovery_agent.aws_bedrockagent_agent.this    VSRDWMQJVS                                                                            
-  terraform import module.spec_synthesizer_agent.aws_bedrockagent_agent.this    M3RZJATEJI
+⏺ terraform import -var-file="cobol-conversion-pipeline.tfvars" module.phase1_supervisor_agent.aws_bedrockagent_agent.this   A8RMAPZEH6                               
+  terraform import -var-file="cobol-conversion-pipeline.tfvars" module.data_mapper_agent.aws_bedrockagent_agent.this         M53L7R9W6U
+  terraform import -var-file="cobol-conversion-pipeline.tfvars" module.structure_analyzer_agent.aws_bedrockagent_agent.this  2GC0SIMDVP                               
+  terraform import -var-file="cobol-conversion-pipeline.tfvars" module.source_discovery_agent.aws_bedrockagent_agent.this    VSRDWMQJVS                               
+  terraform import -var-file="cobol-conversion-pipeline.tfvars" module.spec_synthesizer_agent.aws_bedrockagent_agent.this    M3RZJATEJI 
                                                                                                                                                                       
   2. Lambda image format (400) — separate issue. Lambda only supports Docker Image Manifest V2 Schema 2 or single-arch OCI. The platform team's :prod images are      
   likely multi-arch manifest lists or ECS-format images, not Lambda-compatible. Check what you're dealing with:                                                       
