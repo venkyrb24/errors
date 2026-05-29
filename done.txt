@@ -21,8 +21,108 @@
                                                                                                                                                                       
   The biggest friction so far has been the permissions boundary, which is an environment constraint, not a project complexity issue. Once that's sorted, deployment   
   should be straightforward.                                                                                                                                          
-                                                                                                                                                                      
-✻ Churned for 9s                                                                                                                                                      
    
-● How is Claude doing this session? (optional)                                                                                                                        
-  1: Bad    2: Fine   3: Good   0: Dismiss    
+❯ can you list all resources we are creating                                                                                                                          
+                                                            
+⏺ Let me check the modules I haven't read yet.                                                                                                                        
+                                                                                                                                                                      
+  Read 2 files (ctrl+o to expand)                                                                                                                                     
+                                                                                                                                                                      
+⏺ Here's the full list of everything Terraform creates, grouped by service:                                                                                           
+                                                                                                                                                                      
+  IAM (15 roles + policies)                   
+  - 5 Lambda execution roles — one per agent                                                                                                                          
+  - 5 Bedrock agent execution roles — one per agent         
+  - 1 Step Functions execution role                                                                                                                                   
+  - All with inline policies scoped to what each agent needs                                                                                                          
+                                                                                                                                                                      
+  Lambda (5 functions)                                                                                                                                                
+  - cobol-pipeline-source-discovery                                                                                                                                   
+  - cobol-pipeline-structure-analyzer         
+  - cobol-pipeline-data-mapper                                                                                                                                        
+  - cobol-pipeline-spec-synthesizer                         
+  - cobol-pipeline-phase1-supervisor                                                                                                                                  
+                                                            
+  Bedrock (5 agents + 5 aliases + 4 action groups)                                                                                                                    
+  - One agent per Lambda above                                                                                                                                        
+  - One live alias per agent              
+  - Action groups for the 4 collaborator agents (supervisor has none)                                                                                                 
+                                                                                                                                                                      
+  Step Functions (1)                                                                                                                                                  
+  - cobol-pipeline-phase1 state machine                                                                                                                               
+                                                                                                                                                                      
+  CloudWatch Logs (6 log groups)                                                                                                                                      
+  - 5 Lambda log groups (/aws/lambda/cobol-pipeline-*)                                                                                                                
+  - 1 Step Functions log group (/aws/vendedlogs/states/cobol-pipeline-phase1)                                                                                         
+                                                            
+  SNS (4 topics)                                                                                                                                                      
+  - cobol-pipeline-sme-review             
+  - cobol-pipeline-sme-escalation                                                                                                                                     
+  - cobol-pipeline-dlq-alerts                                                                                                                                         
+  - cobol-pipeline-cost-alerts
+                                                                                                                                                                      
+  SQS (1 queue)                                             
+  - cobol-pipeline-step-functions-dlq                                                                                                                                 
+                                                                                                                                                                      
+  ---                                     
+  Not created by Terraform (pre-existing or skipped):                                                                                                                 
+  - S3 bucket — existing                                                                                                                                              
+  - KMS key — existing  
+  - ECR repos — platform team owns them                                                                                                                               
+  - DynamoDB — disabled                                     
+  - EventBridge — disabled                    
+  - Guardrails — removed                                                                                                                                              
+   
+✻ Crunched for 18s                                                                                                                                                    
+                                                            
+❯ everything using terraform or we have python files                                                                                                                  
+                                                                                                                                                                      
+⏺ Both — they serve different purposes.                                                                                                                               
+                                                                                                                                                                      
+  Terraform — provisions the AWS infrastructure (the stuff listed above). Runs once to set up the environment. Creates Lambdas, Bedrock agents, Step Functions, IAM   
+  roles, etc.                                                                                                                                                         
+                                                                                                                                                                      
+  Python — the actual application code that runs inside those Lambdas. This is where the intelligence lives:                                                          
+                                          
+  ┌───────────────────────────────────────────┬────────────────────────────────────────────────────────────┐                                                          
+  │                   File                    │                        What it does                        │                                                          
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤
+  │ src/pipeline/agents/source_discovery.py   │ Reads COBOL files, builds inventory                        │                                                          
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤
+  │ src/pipeline/agents/structure_analyzer.py │ Maps paragraphs, decision points, complexity               │
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤
+  │ src/pipeline/agents/data_mapper.py        │ Correlates COBOL fields to Oracle columns                  │
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤                                                          
+  │ src/pipeline/agents/spec_synthesizer.py   │ Calls Claude, produces FRD.md                              │
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤                                                          
+  │ lambda_handler.py                         │ Entry point — routes Lambda invocations to the right agent │                                                          
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤
+  │ src/pipeline/llm.py                       │ Wrapper around Bedrock/Claude API calls                    │                                                          
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤
+  │ src/pipeline/config.py                    │ Loads config.yaml settings                                 │                                                          
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤
+  │ src/pipeline/state.py                     │ Tracks run state, writes outputs                           │                                                          
+  └───────────────────────────────────────────┴────────────────────────────────────────────────────────────┘
+                                                                                                                                                                      
+  The Python gets packaged into Docker images, pushed to ECR, and Terraform points the Lambda functions at those images. So:
+                                                                                                                                                                      
+  Python code → Docker image → ECR → Lambda (wired up by Terraform) → runs when Step Functions calls it
+                                                                                                                                                                      
+  Terraform sets the stage. Python is the actual show.      
+                                                                                                                                                                      
+✻ Churned for 8s                                                                                                                                                      
+                                                                                                                                                                      
+❯ can you show me the python code flow                                                                                                                                
+                                                                                                                                                                      
+⏺ Let me read the key files first to give you an accurate picture.
+                                                                                                                                                                      
+  Read 4 files (ctrl+o to expand)             
+                                                                                                                                                                      
+⏺ Here's the full code flow from start to finish:           
+                                                                                                                                                                      
+  ---                                         
+  Entry point — lambda_handler.py                                                                                                                                     
+  Step Functions calls Lambda                               
+          ↓                                                                                                                                                           
+  handler() runs                                                                                                                                                      
+    →   
