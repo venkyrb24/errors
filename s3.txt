@@ -1,138 +1,35 @@
-module.structure_analyzer_lambda.aws_iam_role.lambda: Creating...
-╷
-│ Error: creating IAM Role (cobol-pipeline-spec-synthesizer-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 7baa71b8-8da5-45fc-a7a7-4868ba1440ca, EntityAlreadyExists: Role with name cobol-pipeline-spec-synthesizer-agent-role already exists.
-│
-│   with module.spec_synthesizer_agent.aws_iam_role.agent,
-│   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
-│   52: resource "aws_iam_role" "agent" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-data-mapper-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: fd02d788-2a16-4ec6-926b-975bd8cf702c, EntityAlreadyExists: Role with name cobol-pipeline-data-mapper-agent-role already exists.
-│
-│   with module.data_mapper_agent.aws_iam_role.agent,
-│   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
-│   52: resource "aws_iam_role" "agent" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-phase1-supervisor-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: b5460710-1f61-4aae-8518-d7c7394082cc, EntityAlreadyExists: Role with name cobol-pipeline-phase1-supervisor-agent-role already exists.
-│
-│   with module.phase1_supervisor_agent.aws_iam_role.agent,
-│   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
-│   52: resource "aws_iam_role" "agent" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-source-discovery-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 3bc7b059-a65b-4800-a823-8b616b574097, EntityAlreadyExists: Role with name cobol-pipeline-source-discovery-agent-role already exists.
-│
-│   with module.source_discovery_agent.aws_iam_role.agent,
-│   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
-│   52: resource "aws_iam_role" "agent" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-structure-analyzer-agent-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 1791d848-0e6c-4abb-a645-e61a2c2f8554, EntityAlreadyExists: Role with name cobol-pipeline-structure-analyzer-agent-role already exists.
-│
-│   with module.structure_analyzer_agent.aws_iam_role.agent,
-│   on modules\bedrock_agent\main.tf line 52, in resource "aws_iam_role" "agent":
-│   52: resource "aws_iam_role" "agent" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-data-mapper-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 77fdf177-eadf-4d40-8e5f-6f0077dcf116, EntityAlreadyExists: Role with name cobol-pipeline-data-mapper-lambda-role already exists.
-│
-│   with module.data_mapper_lambda.aws_iam_role.lambda,
-│   on modules\lambda_action_group\main.tf line 120, in resource "aws_iam_role" "lambda":
-│  120: resource "aws_iam_role" "lambda" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-structure-analyzer-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: f8ca5280-0da6-4600-95ae-f6876a349d8f, EntityAlreadyExists: Role with name cobol-pipeline-structure-analyzer-lambda-role already exists.
-│
-│   with module.structure_analyzer_lambda.aws_iam_role.lambda,
-│   on modules\lambda_action_group\main.tf line 120, in resource "aws_iam_role" "lambda":
-│  120: resource "aws_iam_role" "lambda" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-source-discovery-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 6b0bb5ab-0126-455e-ad98-0b0ef7b02def, EntityAlreadyExists: Role with name cobol-pipeline-source-discovery-lambda-role already exists.
-│
-│   with module.source_discovery_lambda.aws_iam_role.lambda,
-│   on modules\lambda_action_group\main.tf line 120, in resource "aws_iam_role" "lambda":
-│  120: resource "aws_iam_role" "lambda" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-phase1-supervisor-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: cbe62fde-dbb2-4c0c-9a4f-ce20ab67647d, EntityAlreadyExists: Role with name cobol-pipeline-phase1-supervisor-lambda-role already exists.
-│
-│   with module.phase1_supervisor_lambda.aws_iam_role.lambda,
-│   on modules\lambda_action_group\main.tf line 120, in resource "aws_iam_role" "lambda":
-│  120: resource "aws_iam_role" "lambda" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-spec-synthesizer-lambda-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: e96f75ad-e7fe-4fae-9061-16f88b12da76, EntityAlreadyExists: Role with name cobol-pipeline-spec-synthesizer-lambda-role already exists.
-│
-│   with module.spec_synthesizer_lambda.aws_iam_role.lambda,
-│   on modules\lambda_action_group\main.tf line 120, in resource "aws_iam_role" "lambda":
-│  120: resource "aws_iam_role" "lambda" {
-│
-╵
-╷
-│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-data-mapper): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: 76b0c219-cd96-4351-8dc7-1cb0acd82b57, ResourceAlreadyExistsException: The specified log group already exists
-│
-│   with module.data_mapper_lambda.aws_cloudwatch_log_group.this,
-│   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
-│  233: resource "aws_cloudwatch_log_group" "this" {
-│
-╵
-╷
-│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-spec-synthesizer): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: 75e0848a-2c0f-4ed9-b79a-b2fdb42b81d7, ResourceAlreadyExistsException: The specified log group already exists
-│
-│   with module.spec_synthesizer_lambda.aws_cloudwatch_log_group.this,
-│   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
-│  233: resource "aws_cloudwatch_log_group" "this" {
-│
-╵
-╷
-│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-phase1-supervisor): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: 504ba7a8-cc09-4064-8269-3155d179e04b, ResourceAlreadyExistsException: The specified log group already exists
-│
-│   with module.phase1_supervisor_lambda.aws_cloudwatch_log_group.this,
-│   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
-│  233: resource "aws_cloudwatch_log_group" "this" {
-│
-╵
-╷
-│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-structure-analyzer): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: d4d8418c-262b-440d-a1fe-ea11d1b76418, ResourceAlreadyExistsException: The specified log group already exists
-│
-│   with module.structure_analyzer_lambda.aws_cloudwatch_log_group.this,
-│   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
-│  233: resource "aws_cloudwatch_log_group" "this" {
-│
-╵
-╷
-│ Error: creating CloudWatch Logs Log Group (/aws/lambda/cobol-pipeline-source-discovery): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: f2b5a41e-0ff3-4de2-8512-dd0055f3f6e9, ResourceAlreadyExistsException: The specified log group already exists
-│
-│   with module.source_discovery_lambda.aws_cloudwatch_log_group.this,
-│   on modules\lambda_action_group\main.tf line 233, in resource "aws_cloudwatch_log_group" "this":
-│  233: resource "aws_cloudwatch_log_group" "this" {
-│
-╵
-╷
-│ Error: creating IAM Role (cobol-pipeline-step-functions-role): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 6f1e112a-00fc-4520-a853-a9bd5caab40e, EntityAlreadyExists: Role with name cobol-pipeline-step-functions-role already exists.
-│
-│   with module.step_functions.aws_iam_role.sf,
-│   on modules\step_functions\main.tf line 25, in resource "aws_iam_role" "sf":
-│   25: resource "aws_iam_role" "sf" {
-│
-╵
-╷
-│ Error: creating CloudWatch Logs Log Group (/aws/vendedlogs/states/cobol-pipeline-phase1): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: fe1c4070-b860-4b17-b463-07dfa8ab671d, ResourceAlreadyExistsException: The specified log group already exists
-│
-│   with module.step_functions.aws_cloudwatch_log_group.phase1,
-│   on modules\step_functions\main.tf line 62, in resource "aws_cloudwatch_log_group" "phase1":
-│   62: resource "aws_cloudwatch_log_group" "phase1" {
-│
-╵
-PS C:\cobol-modernization-pipeline\infrastructure>
+  First, check if errored.tfstate still exists:                                                                                                                       
+                                                                                                                                                                      
+  Test-Path C:\cobol-modernization-pipeline\infrastructure\errored.tfstate                                                                                            
+                                                                                                                                                                      
+  If it exists — push it (this is the fast path, imports everything at once):                                                                                         
+  terraform state push errored.tfstate                                                                                                                                
+  terraform apply -var-file=cobol-conversion-pipeline.tfvars -auto-approve                                                                                            
+                                                                                                                                                                      
+  If it doesn't exist — import each resource individually:
+                                                                                                                                                                      
+  # IAM Roles                                               
+  terraform import module.spec_synthesizer_agent.aws_iam_role.agent       cobol-pipeline-spec-synthesizer-agent-role
+  terraform import module.data_mapper_agent.aws_iam_role.agent             cobol-pipeline-data-mapper-agent-role                                                      
+  terraform import module.phase1_supervisor_agent.aws_iam_role.agent       cobol-pipeline-phase1-supervisor-agent-role                                                
+  terraform import module.source_discovery_agent.aws_iam_role.agent        cobol-pipeline-source-discovery-agent-role                                                 
+  terraform import module.structure_analyzer_agent.aws_iam_role.agent      cobol-pipeline-structure-analyzer-agent-role                                               
+  terraform import module.data_mapper_lambda.aws_iam_role.lambda           cobol-pipeline-data-mapper-lambda-role
+  terraform import module.structure_analyzer_lambda.aws_iam_role.lambda    cobol-pipeline-structure-analyzer-lambda-role                                              
+  terraform import module.source_discovery_lambda.aws_iam_role.lambda      cobol-pipeline-source-discovery-lambda-role
+  terraform import module.phase1_supervisor_lambda.aws_iam_role.lambda     cobol-pipeline-phase1-supervisor-lambda-role                                               
+  terraform import module.spec_synthesizer_lambda.aws_iam_role.lambda      cobol-pipeline-spec-synthesizer-lambda-role
+  terraform import module.step_functions.aws_iam_role.sf                   cobol-pipeline-step-functions-role                                                         
+                                                            
+  # CloudWatch Log Groups                                                                                                                                             
+  terraform import module.data_mapper_lambda.aws_cloudwatch_log_group.this       /aws/lambda/cobol-pipeline-data-mapper
+  terraform import module.spec_synthesizer_lambda.aws_cloudwatch_log_group.this  /aws/lambda/cobol-pipeline-spec-synthesizer                                          
+  terraform import module.phase1_supervisor_lambda.aws_cloudwatch_log_group.this /aws/lambda/cobol-pipeline-phase1-supervisor                                         
+  terraform import module.structure_analyzer_lambda.aws_cloudwatch_log_group.this /aws/lambda/cobol-pipeline-structure-analyzer
+  terraform import module.source_discovery_lambda.aws_cloudwatch_log_group.this  /aws/lambda/cobol-pipeline-source-discovery                                          
+  terraform import module.step_functions.aws_cloudwatch_log_group.phase1         /aws/vendedlogs/states/cobol-pipeline-phase1                                         
+                                                                                                                                                                      
+  terraform apply -var-file=cobol-conversion-pipeline.tfvars -auto-approve                                                                                            
+                                                            
+  The state push is preferable if the file exists — it captures everything including resources not in this error list (Bedrock agents, Lambdas, etc. that may have    
+  been partially created).    
