@@ -1,22 +1,4 @@
-module.structure_analyzer_agent.aws_bedrockagent_agent.this: Modifications complete after 3s [id=2GC0SIMDVP]
-╷
-│ Error: creating Lambda Function (cobol-pipeline-source-discovery): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: e59c84f2-4a1e-43a9-bb7c-dce10608ee3c, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/inventory-dialect:prod is not supported.
-│
-│   with module.source_discovery_lambda.aws_lambda_function.this,
-│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
-│  239: resource "aws_lambda_function" "this" {
-│
-╵
-╷
-│ Error: creating Lambda Function (cobol-pipeline-spec-synthesizer): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: f13cfa5b-7d67-46d5-a421-ebe3cf8a01fc, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/generate-functional-spec:prod is not supported.
-│
-│   with module.spec_synthesizer_lambda.aws_lambda_function.this,
-│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
-│  239: resource "aws_lambda_function" "this" {
-│
-╵
-╷
-│ Error: creating Lambda Function (cobol-pipeline-data-mapper): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: 494b05df-d0f7-475b-a97a-4c05287890b1, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/map-data-structures:prod is not supported.
+│ Error: creating Lambda Function (cobol-pipeline-data-mapper): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: 643d8bc2-818f-468c-8d98-5ce3e8ed384a, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
 │
 │   with module.data_mapper_lambda.aws_lambda_function.this,
 │   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
@@ -24,7 +6,23 @@ module.structure_analyzer_agent.aws_bedrockagent_agent.this: Modifications compl
 │
 ╵
 ╷
-│ Error: creating Lambda Function (cobol-pipeline-structure-analyzer): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: 33220aa5-6e5e-4049-b4e3-28803d02ec21, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/parse-structure:prod is not supported.
+│ Error: creating Lambda Function (cobol-pipeline-spec-synthesizer): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: 265a0ba9-aeb7-4d6e-9d78-7ef16645a548, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
+│
+│   with module.spec_synthesizer_lambda.aws_lambda_function.this,
+│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
+│  239: resource "aws_lambda_function" "this" {
+│
+╵
+╷
+│ Error: creating Lambda Function (cobol-pipeline-source-discovery): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: b4472010-d84c-44ad-85ac-565bbe39795d, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
+│
+│   with module.source_discovery_lambda.aws_lambda_function.this,
+│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
+│  239: resource "aws_lambda_function" "this" {
+│
+╵
+╷
+│ Error: creating Lambda Function (cobol-pipeline-structure-analyzer): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: 062ce4df-ccd4-4ee2-ab7a-403e6eb1b28d, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
 │
 │   with module.structure_analyzer_lambda.aws_lambda_function.this,
 │   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
@@ -32,11 +30,8 @@ module.structure_analyzer_agent.aws_bedrockagent_agent.this: Modifications compl
 │
 ╵
 ╷
-│ Error: creating Lambda Function (cobol-pipeline-phase1-supervisor): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: 0e216347-b9ec-4185-9015-d874659bea83, InvalidParameterValueException: The image manifest, config or layer media type for the source image 260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/supervisor:prod is not supported.
+│ Error: creating Lambda Function (cobol-pipeline-phase1-supervisor): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: 2b5ada23-3820-4f03-a3b0-5fa491ca4297, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
 │
 │   with module.phase1_supervisor_lambda.aws_lambda_function.this,
 │   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
 │  239: resource "aws_lambda_function" "this" {
-│
-╵
-PS C:\cobol-modernization-pipeline\infrastructure>
