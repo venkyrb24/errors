@@ -1,89 +1,50 @@
-╷
-│ Error: putting ECR Repository Policy (prod/cafs-ai/inventory-dialect): operation error ECR: SetRepositoryPolicy, https response error StatusCode: 400, RequestID: 9e657cd6-e8d8-4540-b206-edc4f6a7a0a6, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:SetRepositoryPolicy on resource: arn:aws:ecr:us-east-1:260851781623:repository/prod/cafs-ai/inventory-dialect because no permissions boundary allows the ecr:SetRepositoryPolicy action
-│
-│   with aws_ecr_repository_policy.lambda_pull["prod/cafs-ai/inventory-dialect"],
-│   on main.tf line 47, in resource "aws_ecr_repository_policy" "lambda_pull":
-│   47: resource "aws_ecr_repository_policy" "lambda_pull" {
-│
-╵
-╷
-│ Error: putting ECR Repository Policy (prod/cafs-ai/supervisor): operation error ECR: SetRepositoryPolicy, https response error StatusCode: 400, RequestID: 578510b6-470e-4cd1-bcfe-7b38c9ba90b8, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:SetRepositoryPolicy on resource: arn:aws:ecr:us-east-1:260851781623:repository/prod/cafs-ai/supervisor because no permissions boundary allows the ecr:SetRepositoryPolicy action
-│
-│   with aws_ecr_repository_policy.lambda_pull["prod/cafs-ai/supervisor"],
-│   on main.tf line 47, in resource "aws_ecr_repository_policy" "lambda_pull":
-│   47: resource "aws_ecr_repository_policy" "lambda_pull" {
-│
-╵
-╷
-│ Error: putting ECR Repository Policy (prod/cafs-ai/map-data-structures): operation error ECR: SetRepositoryPolicy, https response error StatusCode: 400, RequestID: adc8de7c-7d4f-458b-b1a2-622f97646fb8, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:SetRepositoryPolicy on resource: arn:aws:ecr:us-east-1:260851781623:repository/prod/cafs-ai/map-data-structures because no permissions boundary allows the ecr:SetRepositoryPolicy action
-│
-│   with aws_ecr_repository_policy.lambda_pull["prod/cafs-ai/map-data-structures"],
-│   on main.tf line 47, in resource "aws_ecr_repository_policy" "lambda_pull":
-│   47: resource "aws_ecr_repository_policy" "lambda_pull" {
-│
-╵
-╷
-│ Error: putting ECR Repository Policy (prod/cafs-ai/parse-structure): operation error ECR: SetRepositoryPolicy, https response error StatusCode: 400, RequestID: 013fb7d6-106e-4407-888b-c2ec539fd5fc, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:SetRepositoryPolicy on resource: arn:aws:ecr:us-east-1:260851781623:repository/prod/cafs-ai/parse-structure because no permissions boundary allows the ecr:SetRepositoryPolicy action
-│
-│   with aws_ecr_repository_policy.lambda_pull["prod/cafs-ai/parse-structure"],
-│   on main.tf line 47, in resource "aws_ecr_repository_policy" "lambda_pull":
-│   47: resource "aws_ecr_repository_policy" "lambda_pull" {
-│
-╵
-╷
-│ Error: putting ECR Repository Policy (prod/cafs-ai/generate-functional-spec): operation error ECR: SetRepositoryPolicy, https response error StatusCode: 400, RequestID: 57c847ad-d327-4991-8c29-088a186c6efa, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:SetRepositoryPolicy on resource: arn:aws:ecr:us-east-1:260851781623:repository/prod/cafs-ai/generate-functional-spec because no permissions boundary allows the ecr:SetRepositoryPolicy action
-│
-│   with aws_ecr_repository_policy.lambda_pull["prod/cafs-ai/generate-functional-spec"],
-│   on main.tf line 47, in resource "aws_ecr_repository_policy" "lambda_pull":
-│   47: resource "aws_ecr_repository_policy" "lambda_pull" {
-│
-╵
-╷
-│ Error: creating ECR Repository (cobol-pipeline-structure-analyzer): operation error ECR: CreateRepository, https response error StatusCode: 400, RequestID: 5c261312-5f3e-43f9-9db0-f82c30240f03, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:CreateRepository on resource: arn:aws:ecr:us-east-1:260851781623:repository/cobol-pipeline-structure-analyzer because no permissions boundary allows the ecr:CreateRepository action
-│
-│   with module.ecr[0].aws_ecr_repository.this["structure-analyzer"],
-│   on modules\ecr_repos\main.tf line 37, in resource "aws_ecr_repository" "this":
-│   37: resource "aws_ecr_repository" "this" {
-│
-╵
-╷
-│ Error: creating ECR Repository (cobol-pipeline-source-discovery): operation error ECR: CreateRepository, https response error StatusCode: 400, RequestID: 4dc85353-a2bf-4d33-80e4-6b61b59e3ba0, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:CreateRepository on resource: arn:aws:ecr:us-east-1:260851781623:repository/cobol-pipeline-source-discovery because no permissions boundary allows the ecr:CreateRepository action
-│
-│   with module.ecr[0].aws_ecr_repository.this["source-discovery"],
-│   on modules\ecr_repos\main.tf line 37, in resource "aws_ecr_repository" "this":
-│   37: resource "aws_ecr_repository" "this" {
-│
-╵
-╷
-│ Error: creating ECR Repository (cobol-pipeline-spec-synthesizer): operation error ECR: CreateRepository, https response error StatusCode: 400, RequestID: 23882b04-7984-4d37-b0e3-3f925dd9295b, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:CreateRepository on resource: arn:aws:ecr:us-east-1:260851781623:repository/cobol-pipeline-spec-synthesizer because no permissions boundary allows the ecr:CreateRepository action
-│
-│   with module.ecr[0].aws_ecr_repository.this["spec-synthesizer"],
-│   on modules\ecr_repos\main.tf line 37, in resource "aws_ecr_repository" "this":
-│   37: resource "aws_ecr_repository" "this" {
-│
-╵
-╷
-│ Error: creating ECR Repository (cobol-pipeline-data-mapper): operation error ECR: CreateRepository, https response error StatusCode: 400, RequestID: 2a6a0426-13a5-4ea1-bd43-026d0aabde39, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:CreateRepository on resource: arn:aws:ecr:us-east-1:260851781623:repository/cobol-pipeline-data-mapper because no permissions boundary allows the ecr:CreateRepository action
-│
-│   with module.ecr[0].aws_ecr_repository.this["data-mapper"],
-│   on modules\ecr_repos\main.tf line 37, in resource "aws_ecr_repository" "this":
-│   37: resource "aws_ecr_repository" "this" {
-│
-╵
-╷
-│ Error: creating ECR Repository (cobol-pipeline-cobol-runtime): operation error ECR: CreateRepository, https response error StatusCode: 400, RequestID: bbbd9c23-c8b0-4f7c-b5bc-22df2f37e963, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:CreateRepository on resource: arn:aws:ecr:us-east-1:260851781623:repository/cobol-pipeline-cobol-runtime because no permissions boundary allows the ecr:CreateRepository action
-│
-│   with module.ecr[0].aws_ecr_repository.this["cobol-runtime"],
-│   on modules\ecr_repos\main.tf line 37, in resource "aws_ecr_repository" "this":
-│   37: resource "aws_ecr_repository" "this" {
-│
-╵
-╷
-│ Error: creating ECR Repository (cobol-pipeline-phase1-supervisor): operation error ECR: CreateRepository, https response error StatusCode: 400, RequestID: 12dce86b-459d-4f3b-8ca8-8804180eb320, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:CreateRepository on resource: arn:aws:ecr:us-east-1:260851781623:repository/cobol-pipeline-phase1-supervisor because no permissions boundary allows the ecr:CreateRepository action
-│
-│   with module.ecr[0].aws_ecr_repository.this["phase1-supervisor"],
-│   on modules\ecr_repos\main.tf line 37, in resource "aws_ecr_repository" "this":
-│   37: resource "aws_ecr_repository" "this" {
-│
-╵
-PS C:\cobol-modernization-pipeline\infrastructure>
+Subject: ECR Pull Access Request for COBOL Modernization Pipeline Lambda Functions
+                                                                                                                                               
+  Hi team,                                                  
+                                                                                                                                               
+  We are deploying the COBOL Modernization Pipeline, which uses 5 Lambda functions as AI agent action groups backed by Amazon Bedrock. Each    
+  Lambda is packaged as a container image and stored in the prod/cafs-ai/* ECR repositories that your team manages.                            
+                                                                                                                                               
+  What these Lambdas do:                                    
+
+  ┌───────────────────────────────────┬───────────────────────────────────────┬─────────────────────────────────────────────────────────────┐  
+  │              Lambda               │               ECR Repo                │                            Role                             │
+  ├───────────────────────────────────┼───────────────────────────────────────┼─────────────────────────────────────────────────────────────┤  
+  │ cobol-pipeline-phase1-supervisor  │ prod/cafs-ai/supervisor               │ Orchestrates the end-to-end pipeline — invokes the 4        │
+  │                                   │                                       │ collaborator agents in sequence                             │
+  ├───────────────────────────────────┼───────────────────────────────────────┼─────────────────────────────────────────────────────────────┤  
+  │ cobol-pipeline-source-discovery   │ prod/cafs-ai/inventory-dialect        │ Scans COBOL source files, identifies programs, copybooks,   │
+  │                                   │                                       │ dialects, and job scripts                                   │  
+  ├───────────────────────────────────┼───────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+  │ cobol-pipeline-structure-analyzer │ prod/cafs-ai/parse-structure          │ Parses COBOL program structure — divisions, sections,       │  
+  │                                   │                                       │ paragraphs, data definitions                                │  
+  ├───────────────────────────────────┼───────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+  │ cobol-pipeline-data-mapper        │ prod/cafs-ai/map-data-structures      │ Maps COBOL data structures to relational/modern equivalents │  
+  ├───────────────────────────────────┼───────────────────────────────────────┼─────────────────────────────────────────────────────────────┤  
+  │ cobol-pipeline-spec-synthesizer   │ prod/cafs-ai/generate-functional-spec │ Generates a functional requirements document (FRD) from the │
+  │                                   │                                       │  analysis outputs                                           │  
+  └───────────────────────────────────┴───────────────────────────────────────┴─────────────────────────────────────────────────────────────┘
+                                                                                                                                               
+  What we're requesting:                                                                                                                       
+   
+  We need each Lambda execution role to be added to the corresponding ECR repository policy with pull permissions (ecr:GetDownloadUrlForLayer, 
+  ecr:BatchGetImage, ecr:BatchCheckLayerAvailability):      
+                                                                                                                                               
+  ┌───────────────────────────────────────┬──────────────────────────────────────────────────────────────────────────────┐                     
+  │            ECR Repository             │                          Lambda Execution Role ARN                           │
+  ├───────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────┤                     
+  │ prod/cafs-ai/supervisor               │ arn:aws:iam::260851781623:role/cobol-pipeline-phase1-supervisor-lambda-role  │
+  ├───────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────┤
+  │ prod/cafs-ai/inventory-dialect        │ arn:aws:iam::260851781623:role/cobol-pipeline-source-discovery-lambda-role   │                     
+  ├───────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────┤
+  │ prod/cafs-ai/parse-structure          │ arn:aws:iam::260851781623:role/cobol-pipeline-structure-analyzer-lambda-role │                     
+  ├───────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────┤                     
+  │ prod/cafs-ai/map-data-structures      │ arn:aws:iam::260851781623:role/cobol-pipeline-data-mapper-lambda-role        │
+  ├───────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────┤                     
+  │ prod/cafs-ai/generate-functional-spec │ arn:aws:iam::260851781623:role/cobol-pipeline-spec-synthesizer-lambda-role   │
+  └───────────────────────────────────────┴──────────────────────────────────────────────────────────────────────────────┘                     
+                                                            
+  We already have push access to these repos (used to build and push the images). This request is specifically for the Lambda service to pull  
+  those images at runtime.                                  
+                                                                                                                                               
+  Thanks   
