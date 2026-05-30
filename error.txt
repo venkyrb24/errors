@@ -1,82 +1,21 @@
-module.spec_synthesizer_lambda.aws_lambda_function.this: Creating...
-╷
-│ Error: putting ECR Repository Policy (prod/cafs-ai/map-data-structures): operation error ECR: SetRepositoryPolicy, https response error StatusCode: 400, RequestID: 08914c6b-ebc4-4a4c-bdaa-e0e21e6294c2, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:SetRepositoryPolicy on resource: arn:aws:ecr:us-east-1:260851781623:repository/prod/cafs-ai/map-data-structures because no permissions boundary allows the ecr:SetRepositoryPolicy action
-│
-│   with aws_ecr_repository_policy.lambda_pull["prod/cafs-ai/map-data-structures"],
-│   on main.tf line 47, in resource "aws_ecr_repository_policy" "lambda_pull":
-│   47: resource "aws_ecr_repository_policy" "lambda_pull" {
-│
-╵
-╷
-│ Error: putting ECR Repository Policy (prod/cafs-ai/generate-functional-spec): operation error ECR: SetRepositoryPolicy, https response error StatusCode: 400, RequestID: 599d6a6a-ecf6-4421-82bd-614752c37f73, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:SetRepositoryPolicy on resource: arn:aws:ecr:us-east-1:260851781623:repository/prod/cafs-ai/generate-functional-spec because no permissions boundary allows the ecr:SetRepositoryPolicy action
-│
-│   with aws_ecr_repository_policy.lambda_pull["prod/cafs-ai/generate-functional-spec"],
-│   on main.tf line 47, in resource "aws_ecr_repository_policy" "lambda_pull":
-│   47: resource "aws_ecr_repository_policy" "lambda_pull" {
-│
-╵
-╷
-│ Error: putting ECR Repository Policy (prod/cafs-ai/inventory-dialect): operation error ECR: SetRepositoryPolicy, https response error StatusCode: 400, RequestID: 5b33da27-c47e-4698-8eb4-110c0b13e5aa, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:SetRepositoryPolicy on resource: arn:aws:ecr:us-east-1:260851781623:repository/prod/cafs-ai/inventory-dialect because no permissions boundary allows the ecr:SetRepositoryPolicy action
-│
-│   with aws_ecr_repository_policy.lambda_pull["prod/cafs-ai/inventory-dialect"],
-│   on main.tf line 47, in resource "aws_ecr_repository_policy" "lambda_pull":
-│   47: resource "aws_ecr_repository_policy" "lambda_pull" {
-│
-╵
-╷
-│ Error: putting ECR Repository Policy (prod/cafs-ai/parse-structure): operation error ECR: SetRepositoryPolicy, https response error StatusCode: 400, RequestID: aaa92581-d585-4e77-83ea-20b2583f3b7b, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:SetRepositoryPolicy on resource: arn:aws:ecr:us-east-1:260851781623:repository/prod/cafs-ai/parse-structure because no permissions boundary allows the ecr:SetRepositoryPolicy action
-│
-│   with aws_ecr_repository_policy.lambda_pull["prod/cafs-ai/parse-structure"],
-│   on main.tf line 47, in resource "aws_ecr_repository_policy" "lambda_pull":
-│   47: resource "aws_ecr_repository_policy" "lambda_pull" {
-│
-╵
-╷
-│ Error: putting ECR Repository Policy (prod/cafs-ai/supervisor): operation error ECR: SetRepositoryPolicy, https response error StatusCode: 400, RequestID: 262d7343-4132-4a6a-90cd-d1c1c7aaa3d3, api error AccessDeniedException: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:SetRepositoryPolicy on resource: arn:aws:ecr:us-east-1:260851781623:repository/prod/cafs-ai/supervisor because no permissions boundary allows the ecr:SetRepositoryPolicy action
-│
-│   with aws_ecr_repository_policy.lambda_pull["prod/cafs-ai/supervisor"],
-│   on main.tf line 47, in resource "aws_ecr_repository_policy" "lambda_pull":
-│   47: resource "aws_ecr_repository_policy" "lambda_pull" {
-│
-╵
-╷
-│ Error: creating Lambda Function (cobol-pipeline-phase1-supervisor): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: c15851d4-cfb4-4f4f-bccc-a655bb956e0e, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
-│
-│   with module.phase1_supervisor_lambda.aws_lambda_function.this,
-│   on modules\lambda_action_group\main.tf line 255, in resource "aws_lambda_function" "this":
-│  255: resource "aws_lambda_function" "this" {
-│
-╵
-╷
-│ Error: creating Lambda Function (cobol-pipeline-data-mapper): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: eb2ceb95-1a44-4b5d-a6ef-3028173a1e8d, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
-│
-│   with module.data_mapper_lambda.aws_lambda_function.this,
-│   on modules\lambda_action_group\main.tf line 255, in resource "aws_lambda_function" "this":
-│  255: resource "aws_lambda_function" "this" {
-│
-╵
-╷
-│ Error: creating Lambda Function (cobol-pipeline-structure-analyzer): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: a721fedf-8533-4586-a23c-89226964c772, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
-│
-│   with module.structure_analyzer_lambda.aws_lambda_function.this,
-│   on modules\lambda_action_group\main.tf line 255, in resource "aws_lambda_function" "this":
-│  255: resource "aws_lambda_function" "this" {
-│
-╵
-╷
-│ Error: creating Lambda Function (cobol-pipeline-spec-synthesizer): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: a9cf68cb-111e-4f10-9c93-deb3287e6df4, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
-│
-│   with module.spec_synthesizer_lambda.aws_lambda_function.this,
-│   on modules\lambda_action_group\main.tf line 255, in resource "aws_lambda_function" "this":
-│  255: resource "aws_lambda_function" "this" {
-│
-╵
-╷
-│ Error: creating Lambda Function (cobol-pipeline-source-discovery): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: d0d4b19c-554a-4391-89a6-8db44e9befaa, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
-│
-│   with module.source_discovery_lambda.aws_lambda_function.this,
-│   on modules\lambda_action_group\main.tf line 255, in resource "aws_lambda_function" "this":
-│  255: resource "aws_lambda_function" "this" {
-│
-╵
-PS C:\cobol-modernization-pipeline\infrastructure>
+  Step 1 — Create repos:                                                                                                                       
+  git pull
+  cd infrastructure                                                                                                                            
+  terraform apply -var-file="cobol-conversion-pipeline.tfvars" -auto-approve                                                                   
+  This creates cobol-pipeline-source-discovery, cobol-pipeline-structure-analyzer, etc. Lambda creation will fail (no images yet) — that's
+  fine.                                                                                                                                        
+                                                                                                                                               
+  Step 2 — Build and push to new repos:
+  $env:USERPROFILE = "C:\Users\$env:USERNAME"                                                                                                  
+  aws ecr get-login-password --region us-east-1 --profile sba-prod | docker login --username AWS --password-stdin                              
+  260851781623.dkr.ecr.us-east-1.amazonaws.com                                                                   
+                                                                                                                                               
+  $agents = @("source-discovery", "structure-analyzer", "data-mapper", "spec-synthesizer", "phase1-supervisor")
+  foreach ($agent in $agents) {                                                                                                                
+    $repo = "260851781623.dkr.ecr.us-east-1.amazonaws.com/cobol-pipeline-$agent`:latest"
+    docker build --platform linux/amd64 --provenance=false --build-arg AGENT_NAME=$agent -t $repo -f Dockerfile.agent .                        
+    docker push $repo                                                                                                                          
+  }                  
+                                                                                                                                               
+  Step 3 — Create Lambda functions:                                                                                                            
+  terraform apply -var-file="cobol-conversion-pipeline.tfvars" -auto-approve
