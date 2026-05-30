@@ -1,37 +1,18 @@
-│ Error: creating Lambda Function (cobol-pipeline-data-mapper): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: 643d8bc2-818f-468c-8d98-5ce3e8ed384a, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
-│
-│   with module.data_mapper_lambda.aws_lambda_function.this,
-│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
-│  239: resource "aws_lambda_function" "this" {
-│
-╵
-╷
-│ Error: creating Lambda Function (cobol-pipeline-spec-synthesizer): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: 265a0ba9-aeb7-4d6e-9d78-7ef16645a548, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
-│
-│   with module.spec_synthesizer_lambda.aws_lambda_function.this,
-│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
-│  239: resource "aws_lambda_function" "this" {
-│
-╵
-╷
-│ Error: creating Lambda Function (cobol-pipeline-source-discovery): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: b4472010-d84c-44ad-85ac-565bbe39795d, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
-│
-│   with module.source_discovery_lambda.aws_lambda_function.this,
-│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
-│  239: resource "aws_lambda_function" "this" {
-│
-╵
-╷
-│ Error: creating Lambda Function (cobol-pipeline-structure-analyzer): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: 062ce4df-ccd4-4ee2-ab7a-403e6eb1b28d, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
-│
-│   with module.structure_analyzer_lambda.aws_lambda_function.this,
-│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
-│  239: resource "aws_lambda_function" "this" {
-│
-╵
-╷
-│ Error: creating Lambda Function (cobol-pipeline-phase1-supervisor): operation error Lambda: CreateFunction, https response error StatusCode: 403, RequestID: 2b5ada23-3820-4f03-a3b0-5fa491ca4297, api error AccessDeniedException: Lambda does not have permission to access the ECR image. Check the ECR permissions.
-│
-│   with module.phase1_supervisor_lambda.aws_lambda_function.this,
-│   on modules\lambda_action_group\main.tf line 239, in resource "aws_lambda_function" "this":
-│  239: resource "aws_lambda_function" "this" {
+⏺ The ECR permissions we added to the role are likely being blocked by the permissions boundary — same pattern as SNS/SQS. Let me check two    
+  things: what the ECR repo policy actually says, and whether the Lambda roles really got updated.
+                                                                                                                                               
+  Have the user run these on the SBA machine to diagnose:                                                                                      
+                                                                                                                                               
+  # Check if the ECR repo has a restrictive policy                                                                                             
+  aws ecr get-repository-policy --repository-name prod/cafs-ai/supervisor --region us-east-1 --profile sba-prod                                
+  
+  # Check what's actually on the Lambda execution role                                                                                         
+  aws iam get-role-policy --role-name cobol-pipeline-source-discovery-lambda-role --policy-name cobol-pipeline-source-discovery-inline
+  --profile sba-prod                                                                                                                           
+                                                            
+  Can you paste the output of those two? That'll tell us whether:                                                                              
+  1. The ECR repo has a deny/allowlist blocking our role, or
+  2. The inline policy update didn't take (role was already in state), or                                                                      
+  3. The permissions boundary is stripping the ECR actions before they reach the execution role
+                                                                                                                                               
+✻ Baked for 1m 32s     
