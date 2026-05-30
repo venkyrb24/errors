@@ -1,69 +1,54 @@
-PS C:\cobol-modernization-pipeline\infrastructure> aws ecr get-repository-policy --repository-name prod/cafs-ai/supervisor --region us-east-1
-
-An error occurred (AccessDeniedException) when calling the GetRepositoryPolicy operation: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:GetRepositoryPolicy on resource: arn:aws:ecr:us-east-1:260851781623:repository/prod/cafs-ai/supervisor because no permissions boundary allows the ecr:GetRepositoryPolicy action
-PS C:\cobol-modernization-pipeline\infrastructure> aws iam get-role-policy --role-name cobol-pipeline-source-discovery-lambda-role --policy-name cobol-pipeline-source-discovery-inline
+PS C:\cobol-modernization-pipeline\infrastructure> & "C:\Users\vrbalmuri\AppData\Roaming\Python\Python311\Scripts\aws.cmd" iam get-role --role-name cobol-pipeline-source-discovery-lambda-role
 {
-    "RoleName": "cobol-pipeline-source-discovery-lambda-role",
-    "PolicyName": "cobol-pipeline-source-discovery-inline",
-    "PolicyDocument": {
-        "Version": "2012-10-17",
-        "Statement": [
+    "Role": {
+        "Path": "/",
+        "RoleName": "cobol-pipeline-source-discovery-lambda-role",
+        "RoleId": "AROATZO72J735J5OK4LOD",
+        "Arn": "arn:aws:iam::260851781623:role/cobol-pipeline-source-discovery-lambda-role",
+        "CreateDate": "2026-05-29T03:27:13Z",
+        "AssumeRolePolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Principal": {
+                        "Service": "lambda.amazonaws.com"
+                    },
+                    "Action": "sts:AssumeRole"
+                }
+            ]
+        },
+        "MaxSessionDuration": 3600,
+        "Tags": [
             {
-                "Action": [
-                    "s3:ListBucket",
-                    "s3:GetObject"
-                ],
-                "Effect": "Allow",
-                "Resource": [
-                    "arn:aws:s3:::260851781623-us-east-1-cafs-ai-staging/cobol-input/*",
-                    "arn:aws:s3:::260851781623-us-east-1-cafs-ai-staging"
-                ]
+                "Key": "Directory",
+                "Value": "live/cobol-pipeline/us-east-1/prod/iam/cobol-pipeline-source-discovery-lambda-role"
             },
             {
-                "Action": [
-                    "s3:PutObjectAcl",
-                    "s3:PutObject"
-                ],
-                "Effect": "Allow",
-                "Resource": [
-                    "arn:aws:s3:::260851781623-us-east-1-cafs-ai-staging/cobol-state/*",
-                    "arn:aws:s3:::260851781623-us-east-1-cafs-ai-staging/cobol-analysis/*"
-                ]
+                "Key": "Name",
+                "Value": "cobol-pipeline-source-discovery-lambda-role"
             },
             {
-                "Action": [
-                    "kms:GenerateDataKey",
-                    "kms:Decrypt"
-                ],
-                "Effect": "Allow",
-                "Resource": "arn:aws:kms:us-east-1:260851781623:key/58b5e83f-b7eb-4b79-bd82-86f069ef044c"
+                "Key": "Region",
+                "Value": "us-east-1"
             },
             {
-                "Action": [
-                    "bedrock:InvokeModelWithResponseStream",
-                    "bedrock:InvokeModel"
-                ],
-                "Effect": "Allow",
-                "Resource": [
-                    "arn:aws:bedrock:*::foundation-model/*",
-                    "arn:aws:bedrock:*:*:inference-profile/*"
-                ]
+                "Key": "Environment",
+                "Value": "prod"
             },
             {
-                "Action": "ecr:GetAuthorizationToken",
-                "Effect": "Allow",
-                "Resource": "*"
+                "Key": "GithubRepo",
+                "Value": "cobol-modernization-pipeline"
             },
             {
-                "Action": [
-                    "ecr:GetDownloadUrlForLayer",
-                    "ecr:BatchGetImage",
-                    "ecr:BatchCheckLayerAvailability"
-                ],
-                "Effect": "Allow",
-                "Resource": "*"
+                "Key": "ManagedBy",
+                "Value": "terraform"
             }
-        ]
+        ],
+        "RoleLastUsed": {
+            "LastUsedDate": "2026-05-29T16:04:39Z",
+            "Region": "us-east-1"
+        }
     }
 }
 PS C:\cobol-modernization-pipeline\infrastructure>
