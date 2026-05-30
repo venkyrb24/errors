@@ -1,0 +1,28 @@
+⏺ The fix (--provenance=false) is already committed. You need to run the Docker build/push on the SBA machine. Here are the commands to run there — type ! <command>  
+  in the prompt if you're on the SBA machine, or copy these to run in PowerShell:
+                                                                                                                                                                      
+  Step 1 — ECR login:                                                                                                                                                 
+  $env:USERPROFILE = "C:\Users\$env:USERNAME"
+  aws ecr get-login-password --region us-east-1 --profile sba-prod | docker login --username AWS --password-stdin 260851781623.dkr.ecr.us-east-1.amazonaws.com        
+                  
+  Step 2 — Build and push all 5 images:                                                                                                                               
+  $agents = @{
+    "source-discovery"   = "inventory-dialect"                                                                                                                        
+    "structure-analyzer" = "parse-structure"  
+    "data-mapper"        = "map-data-structures"                                                                                                                      
+    "spec-synthesizer"   = "generate-functional-spec"
+    "phase1-supervisor"  = "supervisor"              
+  }                                                                                                                                                                   
+   
+  foreach ($agent in $agents.Keys) {                                                                                                                                  
+    $repo = "260851781623.dkr.ecr.us-east-1.amazonaws.com/prod/cafs-ai/$($agents[$agent]):prod"
+    docker build --platform linux/amd64 --provenance=false --build-arg AGENT_NAME=$agent -t $repo -f Dockerfile.agent .
+    docker push $repo                                                                                                                                                 
+  }                  
+                                                                                                                                                                      
+  Step 3 — After all images are pushed, run terraform:
+  cd C:\cobol-modernization-pipeline\infrastructure                                                                                                                   
+  terraform apply -var-file="cobol-conversion-pipeline.tfvars" -auto-approve
+                                                                                                                                                                      
+  Make sure you do a git pull on the SBA machine first to pick up the --provenance=false commit (b7e4d1e). Let me know what you see — especially if the ECR push or   
+  terraform apply hits any errors.    
