@@ -1,18 +1,69 @@
-⏺ The ECR permissions we added to the role are likely being blocked by the permissions boundary — same pattern as SNS/SQS. Let me check two    
-  things: what the ECR repo policy actually says, and whether the Lambda roles really got updated.
-                                                                                                                                               
-  Have the user run these on the SBA machine to diagnose:                                                                                      
-                                                                                                                                               
-  # Check if the ECR repo has a restrictive policy                                                                                             
-  aws ecr get-repository-policy --repository-name prod/cafs-ai/supervisor --region us-east-1 --profile sba-prod                                
-  
-  # Check what's actually on the Lambda execution role                                                                                         
-  aws iam get-role-policy --role-name cobol-pipeline-source-discovery-lambda-role --policy-name cobol-pipeline-source-discovery-inline
-  --profile sba-prod                                                                                                                           
-                                                            
-  Can you paste the output of those two? That'll tell us whether:                                                                              
-  1. The ECR repo has a deny/allowlist blocking our role, or
-  2. The inline policy update didn't take (role was already in state), or                                                                      
-  3. The permissions boundary is stripping the ECR actions before they reach the execution role
-                                                                                                                                               
-✻ Baked for 1m 32s     
+PS C:\cobol-modernization-pipeline\infrastructure> aws ecr get-repository-policy --repository-name prod/cafs-ai/supervisor --region us-east-1
+
+An error occurred (AccessDeniedException) when calling the GetRepositoryPolicy operation: User: arn:aws:sts::260851781623:assumed-role/AWSReservedSSO_AWS-OCIO-CAFS-AI-Access_459e649168c147ad/venkat.balmuri is not authorized to perform: ecr:GetRepositoryPolicy on resource: arn:aws:ecr:us-east-1:260851781623:repository/prod/cafs-ai/supervisor because no permissions boundary allows the ecr:GetRepositoryPolicy action
+PS C:\cobol-modernization-pipeline\infrastructure> aws iam get-role-policy --role-name cobol-pipeline-source-discovery-lambda-role --policy-name cobol-pipeline-source-discovery-inline
+{
+    "RoleName": "cobol-pipeline-source-discovery-lambda-role",
+    "PolicyName": "cobol-pipeline-source-discovery-inline",
+    "PolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Action": [
+                    "s3:ListBucket",
+                    "s3:GetObject"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                    "arn:aws:s3:::260851781623-us-east-1-cafs-ai-staging/cobol-input/*",
+                    "arn:aws:s3:::260851781623-us-east-1-cafs-ai-staging"
+                ]
+            },
+            {
+                "Action": [
+                    "s3:PutObjectAcl",
+                    "s3:PutObject"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                    "arn:aws:s3:::260851781623-us-east-1-cafs-ai-staging/cobol-state/*",
+                    "arn:aws:s3:::260851781623-us-east-1-cafs-ai-staging/cobol-analysis/*"
+                ]
+            },
+            {
+                "Action": [
+                    "kms:GenerateDataKey",
+                    "kms:Decrypt"
+                ],
+                "Effect": "Allow",
+                "Resource": "arn:aws:kms:us-east-1:260851781623:key/58b5e83f-b7eb-4b79-bd82-86f069ef044c"
+            },
+            {
+                "Action": [
+                    "bedrock:InvokeModelWithResponseStream",
+                    "bedrock:InvokeModel"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                    "arn:aws:bedrock:*::foundation-model/*",
+                    "arn:aws:bedrock:*:*:inference-profile/*"
+                ]
+            },
+            {
+                "Action": "ecr:GetAuthorizationToken",
+                "Effect": "Allow",
+                "Resource": "*"
+            },
+            {
+                "Action": [
+                    "ecr:GetDownloadUrlForLayer",
+                    "ecr:BatchGetImage",
+                    "ecr:BatchCheckLayerAvailability"
+                ],
+                "Effect": "Allow",
+                "Resource": "*"
+            }
+        ]
+    }
+}
+PS C:\cobol-modernization-pipeline\infrastructure>
